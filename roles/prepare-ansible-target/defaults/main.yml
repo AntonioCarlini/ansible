@@ -1,0 +1,10 @@
+---
+# defaults file for prepare-ansible-target
+
+admin_user_name: ansibleadmin
+admin_user_shell: /bin/bash
+user_generate_ssh_key: False
+
+local_ssh_key_path: "~/.ssh/id_rsa.pub"
+
+sudo_without_password: yes

@@ -1,0 +1,64 @@
+---
+
+# tasks file for 'prepare-ansible-target' role
+#
+# 1. Creates the admin user (defaults to ansibleadmin)
+# 2. Gives the admin user passwordless sudo access
+
+# Ensure that there is a consistent user to act as a target for ansible commands
+
+- name: Add admin user for use by ansible (defaults to 'ansibleadmin')
+  user:
+    name: "{{ admin_user_name }}"
+    comment: Ansible administrator user
+    ssh_key_file: .ssh/id_rsa
+    system: no             # Defaults to no
+    createhome: yes        # Defaults to yes
+    hidden: yes            # Darwin/OS X only, optionally hide the user from the login window and system preferences.
+    shell: "{{ admin_user_shell }}"
+    uid: 1040
+    group: admin
+    state: present
+  become: yes
+
+# Set the ansibleadmin user to be able to use sudo without specifying a password
+
+- name: "Enable including files from sudoers.d/"
+  lineinfile:
+    path: "/etc/sudoers"
+    regexp: "^#includedir /etc/sudoers.d"
+    line: "#includedir /etc/sudoers.d"
+    state: present
+    backup: True
+  when: sudo_without_password
+  become: yes
+  
+- name: Disable sudoers.d
+  lineinfile:
+    path: "/etc/sudoers"
+    regexp: "^#includedir /etc/sudoers.d"
+    line: "#includedir /etc/sudoers.d"
+    state: absent
+    backup: True
+  when: sudo_without_password == False  
+  become: yes
+  
+- name: "Enable passwordless sudo"
+  copy:
+    content: "%{{ admin_user_name }} ALL=(ALL) NOPASSWD:ALL\n"
+    dest: "/etc/sudoers.d/{{ admin_user_name }}"
+    owner: "root"
+    group: "root"
+    mode: "0440"
+  when: sudo_without_password
+  become: yes
+  
+# Ensure that the controlling system can login over ssh using a key-based login
+
+- name: "Allow logins based on SSH key"
+  authorized_key:
+    user: "{{ admin_user_name }}"
+    key: "{{ lookup('file', local_ssh_key_path) }}"
+  when: local_ssh_key_path | default(no)
+  become: yes
+
