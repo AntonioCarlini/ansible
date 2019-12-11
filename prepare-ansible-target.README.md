@@ -4,6 +4,6 @@ To run this playbook an account, USER, on the remote system needs to be availabl
 
 Future playbooks will rely on the user setup by this script (ansibleadmin by default).
 
-ansible-playbook initial.yml -u USER --ask-pass --ask-become-pass -i IPADDRESS,
+ansible-playbook prepare-ansible-target.yml -u USER --ask-pass --ask-become-pass -i IPADDRESS,
 
 # Note: the trailing comma in that line is NOT an accident!

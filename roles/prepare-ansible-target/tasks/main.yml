@@ -14,10 +14,8 @@
     ssh_key_file: .ssh/id_rsa
     system: no             # Defaults to no
     createhome: yes        # Defaults to yes
-    hidden: yes            # Darwin/OS X only, optionally hide the user from the login window and system preferences.
     shell: "{{ admin_user_shell }}"
     uid: 1040
-    group: admin
     state: present
   become: yes
 
@@ -25,7 +23,7 @@
 
 - name: "Enable including files from sudoers.d/"
   lineinfile:
-    path: "/etc/sudoers"
+    destfile: "/etc/sudoers"
     regexp: "^#includedir /etc/sudoers.d"
     line: "#includedir /etc/sudoers.d"
     state: present
@@ -35,7 +33,7 @@
   
 - name: Disable sudoers.d
   lineinfile:
-    path: "/etc/sudoers"
+    destfile: "/etc/sudoers"
     regexp: "^#includedir /etc/sudoers.d"
     line: "#includedir /etc/sudoers.d"
     state: absent
