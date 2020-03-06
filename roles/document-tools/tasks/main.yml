@@ -1,0 +1,8 @@
+---
+# tasks file for roles/document-tools
+
+- name: "Install LibreOffice"
+  package:
+    name: libreoffice
+    state: present
+  become: yes
