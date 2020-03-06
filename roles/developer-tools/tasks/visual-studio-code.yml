@@ -1,0 +1,31 @@
+---
+# tasks to install Visual Studio Code
+
+- name: Get the Microsoft repository keys
+  get_url:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    dest: /tmp/packages.microsoft.asc
+
+- name: Make the Microsoft Visual Code repository available
+  shell: |
+    cat /tmp/packages.microsoft.asc | gpg --dearmor  > /tmp/packages.microsoft.gpg
+    sudo install -o root -g root -m 644 /tmp/packages.microsoft.gpg /usr/share/keyrings/
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" | sudo tee -a /etc/apt/sources.list.d/vscode.list > /dev/null
+    sudo apt-get update
+  args:
+    creates: /etc/apt/sources.list.d/vscode.list
+
+- name: Install packages for Visual Studio Code
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - apt-transport-https
+    - code
+  become: yes
+
+- name: Install Visual Code
+  package:
+    name: code
+    state: present
+  become: yes

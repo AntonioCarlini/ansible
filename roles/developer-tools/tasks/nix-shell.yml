@@ -1,0 +1,10 @@
+---
+# task to install nix-shell
+
+- name: Get the nix-shell installer
+  get_url:
+    url: https://nixos.org/nix/install
+    dest: /tmp/nix-shell.install
+
+- name: Run the nix-shell installer
+  command: sh /tmp/nix-shell.install
