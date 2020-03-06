@@ -1,0 +1,34 @@
+---
+# tasks file for roles/collaboration-tools
+
+# on ubuntu https://go.skype.com/skypeforlinux-64.deb
+# on debian
+- name: Download Skype
+  get_url:
+    url: https://go.skype.com/skypeforlinux-64.deb
+    dest: /tmp/skypeforlinux.deb
+
+- name: Install Skype
+  apt:
+    deb: /tmp/skypeforlinux.deb
+  become: yes
+
+- name: Download Slack
+  get_url:
+    url: https://downloads.slack-edge.com/linux_releases/slack-desktop-4.0.2-amd64.deb
+    dest: /tmp/slack-desktop.deb
+
+- name: Install Slack
+  apt:
+    deb: /tmp/slack-desktop.deb
+  become: yes
+    
+- name: Download Zoom
+  get_url:
+    url: https://zoom.us/client/latest/zoom_amd64.deb
+    dest: /tmp/zoom.deb
+    
+- name: Install Zoom
+  apt:
+    deb: /tmp/zoom.deb
+  become: yes
