@@ -28,9 +28,9 @@ Example Playbook
 License
 -------
 
-GPL
+Apache v2.0
 
 Author Information
 ------------------
 
-Antonio Carlini
+antonio@acarlini.com
