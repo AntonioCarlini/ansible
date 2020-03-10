@@ -1,0 +1,18 @@
+---
+# tasks file for roles/utilities
+
+# TODO:  anoise-gui fails to install
+# TODO:  keypass2 fails to install
+
+- name: Add anoise PPA
+  apt_repository:
+    repo: ppa:costales/anoise
+  become: yes
+
+- name: Install various utilities
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - anoise
+  become: yes
