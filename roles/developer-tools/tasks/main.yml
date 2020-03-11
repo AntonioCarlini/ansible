@@ -1,6 +1,8 @@
 ---
 # tasks file for roles/developer-tools
 
+# nix-shell needs curl installed. Not all distributions include it (e.g. debian minimal install), so install it here.
+
 - name: Install Standard Packages
   package:
     name: "{{ item }}"
@@ -10,6 +12,7 @@
     - emacs
     - ruby
     - tree
+    - curl                      # needed by nix-shell
   become: yes
   
 - include_tasks: nix-shell.yml
