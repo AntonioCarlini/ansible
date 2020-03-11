@@ -1,0 +1,24 @@
+---
+# tasks file for anki
+
+# TODO:
+# Configure for JPN
+# Add to panel favourites
+# investigate fixing kanji font: 誤 
+
+- name: Create the target directory
+  file:
+    path: /tmp/anki
+    state: directory
+    
+- name: Fetch and expand anki tarball
+  unarchive:
+    remote_src: yes
+    src: https://apps.ankiweb.net/downloads/current/anki-2.1.19-linux-amd64.tar.bz2
+    dest: /tmp/anki
+
+- name: Build and install anki
+  shell : |
+    cd /tmp/anki/anki-2.1.19-linux-amd64
+    sudo make install
+
