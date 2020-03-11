@@ -1,0 +1,12 @@
+---
+# tasks file for roles/japanese
+
+- name: Install useful tools for Japanese
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - ibus-anthy
+    - ruby
+    - sass
+  become: yes
