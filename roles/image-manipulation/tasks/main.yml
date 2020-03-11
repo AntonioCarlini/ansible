@@ -19,5 +19,6 @@
     - php
     - php-common
     - php-imagick
+    - rawtherapee
   become: yes
 
