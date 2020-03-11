@@ -1,0 +1,23 @@
+---
+# tasks file for roles/image-manipulation
+
+- name: Add pdftk PPA
+  apt_repository:
+    repo: ppa:malteworld/ppa
+  become: yes
+
+- name: Install various utilities useful for processing scanned images
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - gcc
+    - imagemagick
+    - mupdf-tools
+    - pdfshuffler
+    - pdftk
+    - php
+    - php-common
+    - php-imagick
+  become: yes
+
