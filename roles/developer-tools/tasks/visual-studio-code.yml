@@ -29,3 +29,16 @@
     name: code
     state: present
   become: yes
+
+- name: Install extensions for Visual Studio Code
+  shell: code --install-extension "{{ item }}"
+  loop:
+    - DavidAnson.vscode-markdownlint
+    - KnisterPeter.vscode-github
+    - atlassian.atlascode
+    - ms-azuretools.vscode-docker
+    - ms-python.python
+    - ms-vscode-remote.vscode-remote-extensionpack
+    - ms-vscode.cpptools
+    - redhat.vscode-yaml
+    - rust-lang.rust
