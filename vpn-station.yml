@@ -1,0 +1,8 @@
+---
+- hosts: all
+  roles:
+    - role: collaboration-tools
+    - role: developer-tools
+
+
+    

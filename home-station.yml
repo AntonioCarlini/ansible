@@ -1,0 +1,21 @@
+---
+- hosts: all
+  tasks:
+    - name: Install a few packages (mostly as a test of the playbook)
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - ruby
+        - sass
+      become: yes
+
+  roles:
+    - role: anki
+    - role: japanese
+    - role: developer-tools
+    - role: document-tools
+    - role: image-manipulation
+    - role: utilities
+
+    
