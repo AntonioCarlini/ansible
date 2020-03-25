@@ -1,0 +1,11 @@
+---
+# tasks file for roles/webserver
+
+- name: Install a web server (apache) for mediawiki
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - apache2
+    - libapache2-mod-php
+  become: yes
