@@ -1,13 +1,16 @@
 ---
 - hosts: all
   tasks:
-    - name: Install a few packages (mostly as a test of the playbook)
+    - name: Install a few packages
       package:
         name: "{{ item }}"
         state: present
       loop:
-        - ruby
-        - sass
+        - acetoneiso
+        - munin-node
+        - traceroute
+        - virt-what
+        - wmctrl
       become: yes
 
   roles:
