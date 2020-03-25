@@ -13,8 +13,17 @@
     - ruby
     - tree
     - curl                      # needed by nix-shell
+    - python
+    - python-pip
   become: yes
   
+- name: Ensure pip is up to date
+  shell: pip install --upgrade setuptools
+
+- name: Install pre-commit for git
+  pip:
+    name: pre-commit
+
 - include_tasks: nix-shell.yml
 
 - include_tasks: rust.yml
