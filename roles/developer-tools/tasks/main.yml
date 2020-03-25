@@ -16,17 +16,32 @@
     - python
     - python-pip
   become: yes
-  
+  tags:
+    - packages
+
 - name: Ensure pip is up to date
   shell: pip install --upgrade setuptools
+  tags:
+    - packages
+    - pip
+    - git
 
 - name: Install pre-commit for git
   pip:
     name: pre-commit
+  tags:
+    - packages
+    - git
 
 - include_tasks: nix-shell.yml
+  tags:
+    - nix
 
 - include_tasks: rust.yml
+  tags:
+    - rust
 
 - include_tasks: visual-studio-code.yml
+  tags:
+    - vscode
 
