@@ -8,13 +8,14 @@
     name: "{{ item }}"
     state: present
   loop:
-    - git
-    - emacs
-    - ruby
-    - tree
     - curl                      # needed by nix-shell
+    - emacs
+    - git
+    - gnome-terminal
     - python
     - python-pip
+    - ruby
+    - tree
   become: yes
   tags:
     - packages
