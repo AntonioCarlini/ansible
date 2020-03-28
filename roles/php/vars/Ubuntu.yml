@@ -1,0 +1,7 @@
+php_intl_package_name: php-intl
+php_mbstring_package_name: php-mbstring
+php_xml_package_name: php-xml
+php_apcu_package_name: php7.2-apcu
+php_cli_package_name: php7.2-cli
+php_curl _package_name: php7.2-curl 
+php_gd_package_name: php7.2-gd

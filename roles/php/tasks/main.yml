@@ -1,0 +1,28 @@
+---
+# tasks file for roles/php
+
+- name: Load distribution-specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+    - "default.yml"
+
+#  when: apache_package_name is not defined or apache_service_name is not defined
+
+- name: Install PHP
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "{{ php_intl_package_name }}"
+    - "{{ php_mbstring_package_name }}"
+    - "{{ php_xml_package_name }}"
+    - "{{ php_apcu_package_name }}"
+    - "{{ php_cli_package_name }}"
+    - "{{ php_curl_package_name }}"
+    - "{{ php_gd_package_name }}"
+  become: yes
+
+
