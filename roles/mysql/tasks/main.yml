@@ -1,0 +1,22 @@
+---
+# tasks file for roles/mysql
+
+- name: Install a MySQL database (mariadb)
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - automysqlbackup
+    - mariadb-server
+    - php-mysql
+  become: yes
+
+#sudo emacs -nw /etc/php/7.2/apache2/php.ini # upload_max_filesize = 20M
+
+#sudo mysql -u root -p # no root password so just hit RETURN
+#CREATE USER 'antonioc'@'localhost' IDENTIFIED BY 'antonioc';
+#CREATE DATABASE antonioc_wiki;
+#USE antonioc_wiki;
+#GRANT ALL ON antonioc_wiki.* TO 'antonioc'@'localhost';
+#quit
+
