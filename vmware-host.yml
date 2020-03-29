@@ -14,4 +14,7 @@
         - open-vm-tools
         - sensors-applet
         - tshark
-              become: yes
+      become: yes
+
+  roles:
+    - role: vmware-player

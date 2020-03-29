@@ -1,0 +1,44 @@
+---
+# tasks file for roles/vmware-player
+
+# this is a combination of an existing script and an ansible role found at: https://github.com/vmware-archive/ansible-role-vmware-workstation 
+
+- name: Install linux headers
+  package:
+    name: "linux-headers-{{ ansible_kernel }}"
+  become: yes
+
+- name: Install a few packages
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - libxi6
+    - libxinerama1
+    - libxtst6
+    - x11-apps
+  become: yes
+
+- name: Create temp directory
+  file:
+    path: "{{ vmware_tempdir }}"
+    state: directory
+    mode: 0755
+
+- name: Download workstation
+  get_url:
+    url: https://www.vmware.com/go/getworkstation-linux
+    dest: "{{ vmware_tempdir }}/tryworkstation-linux-64.sh"
+
+- name: Mark script executable
+  file:
+    path: "{{ vmware_tempdir }}/tryworkstation-linux-64.sh"
+    state: file
+    mode: 0755
+
+- name: Run installer
+  shell: >
+    {{ vmware_tempdir }}/tryworkstation-linux-64.sh --eulas-agreed --console --required
+  args:
+    creates: /usr/bin/vmware
+  become: true
