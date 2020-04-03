@@ -1,0 +1,44 @@
+---
+# tasks file for roles/home-common
+
+- name: Install Standard Packages
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - munin-node
+    - nano
+    - openssh-server        # this more or less has to be present for ansible to work, so this is more of a statement that it is required
+  become: yes
+  tags:
+    - packages
+
+# This used to be done with 'cp /usr/share/zoneinfo/Europe/London /etc/localtime' but that's no longer necessary
+- name: Setup timezone info
+  command: timedatectl set-timezone Europe/London
+  become: yes
+  tags:
+    - timezone
+    
+- name: Restrict root login via ssh
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^\s*#?\s*PermitRootLogin'
+    line: PermitRootLogin no
+  become: yes
+  tags:
+    - ssh
+
+- name: Configure sudo for user account
+  copy:
+    dest: "/etc/sudoers.d/{{ user_account }}"
+    content: |
+      Defaults editor=/usr/bin/emacs
+      "{{ user_account }}" ALL=(ALL) NOPASSWD:ALL
+  when: user_account is defined
+  tags:
+    - sudo
+
+- include_tasks: fix-locale.yml
+  tags:
+    - locale
