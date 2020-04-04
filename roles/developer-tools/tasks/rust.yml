@@ -8,11 +8,40 @@
   loop:
     - libc6-dev
   become: yes
+  tags:
+    - rust
 
 - name: Get the rust installer
   get_url:
     url: https://sh.rustup.rs
     dest: /tmp/sh.rustup.rs
+  tags:
+    - rust
 
 - name: Run the rust installer
   command: sh /tmp/sh.rustup.rs -y
+  become: yes
+  become_user: "{{ user_account }}"
+  when: user_account is defined
+  tags:
+    - rust
+
+- name: Update rust
+  shell: |
+    export PATH="$HOME/.cargo/bin:$PATH"
+    rustup update
+  become: yes
+  become_user: "{{ user_account }}"
+  when: user_account is defined
+  tags:
+    - rust
+
+- name: Set rust default to nightly
+  shell: |
+    export PATH="$HOME/.cargo/bin:$PATH"
+    rustup default nightly
+  become: yes
+  become_user: "{{ user_account }}"
+  when: user_account is defined
+  tags:
+    - rust
