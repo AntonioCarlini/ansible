@@ -1,0 +1,18 @@
+---
+# tasks file for ntp-client
+
+- name: Install ntp client
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - ntp
+    - ntpstat
+  become: yes
+
+- name: Start ntp
+  shell: |
+    systemctl restart ntp
+    systemctl start ntp
+  become: yes
+
