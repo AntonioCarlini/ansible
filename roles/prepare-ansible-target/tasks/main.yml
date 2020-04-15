@@ -30,7 +30,7 @@
     backup: True
   when: sudo_without_password
   become: yes
-  
+
 - name: Disable sudoers.d
   lineinfile:
     destfile: "/etc/sudoers"
@@ -38,9 +38,9 @@
     line: "#includedir /etc/sudoers.d"
     state: absent
     backup: True
-  when: sudo_without_password == False  
+  when: sudo_without_password == False
   become: yes
-  
+
 - name: "Enable passwordless sudo"
   copy:
     content: "%{{ admin_user_name }} ALL=(ALL) NOPASSWD:ALL\n"
@@ -50,7 +50,7 @@
     mode: "0440"
   when: sudo_without_password
   become: yes
-  
+
 # Ensure that the controlling system can login over ssh using a key-based login
 
 - name: "Remove existing key in case it is now invalid"
