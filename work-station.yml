@@ -1,9 +1,16 @@
 ---
 - hosts: all
+  tasks:
+    - name: Install a few packages
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - ack
+        - tree
+      become: yes
   roles:
     - role: collaboration-tools
     - role: developer-tools
     - role: image-manipulation
     - role: utilities
-
-    
