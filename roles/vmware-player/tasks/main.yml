@@ -1,7 +1,7 @@
 ---
 # tasks file for roles/vmware-player
 
-# this is a combination of an existing script and an ansible role found at: https://github.com/vmware-archive/ansible-role-vmware-workstation 
+# this is a combination of an existing script and an ansible role found at: https://github.com/vmware-archive/ansible-role-vmware-workstation
 
 - name: Install linux headers
   package:
@@ -37,7 +37,7 @@
     mode: 0755
 
 - name: Run installer
-  shell: >
+  command: >
     {{ vmware_tempdir }}/tryworkstation-linux-64.sh --eulas-agreed --console --required
   args:
     creates: /usr/bin/vmware
