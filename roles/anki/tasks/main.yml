@@ -4,13 +4,13 @@
 # TODO:
 # Configure for JPN
 # Add to panel favourites
-# investigate fixing kanji font: 誤 
+# investigate fixing kanji font: 誤
 
 - name: Create the target directory
   file:
     path: /tmp/anki
     state: directory
-    
+
 - name: Fetch and expand anki tarball
   unarchive:
     remote_src: yes
