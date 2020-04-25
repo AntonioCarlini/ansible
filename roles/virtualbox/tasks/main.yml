@@ -1,0 +1,30 @@
+---
+# tasks file for virtualbox
+
+- name: Load distribution-specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_lsb.id }}.yml"
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+    - "default.yml"
+
+- name: Add the key for the Oracle repository
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  become: yes
+  with_items:
+    - https://www.virtualbox.org/download/oracle_vbox.asc
+    - https://www.virtualbox.org/download/oracle_vbox_2016.asc
+
+- name: Add Oracle PPA for "{{ distro_release }}" and "{{ ansible_lsb.id }}"
+  apt_repository:
+    repo: deb http://download.virtualbox.org/virtualbox/debian bionic contrib
+    state: present
+  become: yes
+
+- name: Install VirtualBox
+  package:
+    name: virtualbox
+  become: yes

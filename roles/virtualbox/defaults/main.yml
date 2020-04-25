@@ -1,0 +1,4 @@
+---
+# defaults file for virtualbox
+
+distro_release: "{{ ansible_distribution_release }}"
