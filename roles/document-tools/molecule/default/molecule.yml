@@ -1,0 +1,22 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+platforms:
+  - name: ubuntu-18.04
+    box: ubuntu/bionic64
+  - name: ubuntu-16.04
+    box: ubuntu/xenial64
+  - name: debian-10
+    box: debian/buster64
+  - name: debian-9
+    box: debian/stretch64
+  - name: debian-8
+    box: debian/jessie64
+  - name: centos-7
+    box: centos/7
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

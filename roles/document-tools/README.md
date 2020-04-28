@@ -25,6 +25,15 @@ Example Playbook
       roles:
          - role: document-tools
 
+Tested against:
+
+- Debian 10
+- Debian 9
+- Debian 8
+- Ubuntu 18.04
+- Ubuntu 16.04
+- CentOS 7
+
 License
 -------
 
