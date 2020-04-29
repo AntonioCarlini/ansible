@@ -4,16 +4,13 @@ galaxy_info:
   license: license (Apache v2.0)
   min_ansible_version: 2.9
 
-  #
-  # platforms is a list of platforms, and each platform has a name and a list of versions.
-  #
   platforms:
     - name: Debian
       versions:
         - 10
         - 9
         - 8
-    - name: Ubunut
+    - name: Ubuntu
       versions:
         - 18.04
         - 16.04
