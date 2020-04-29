@@ -14,12 +14,14 @@
     - packages
 
 # This used to be done with 'cp /usr/share/zoneinfo/Europe/London /etc/localtime' but that's no longer necessary
+# Then it was done using timedatctl.
 - name: Setup timezone info
-  command: timedatectl set-timezone Europe/London
+  timezone:
+    name: Europe/London
   become: yes
   tags:
     - timezone
-    
+
 - name: Restrict root login via ssh
   lineinfile:
     path: /etc/ssh/sshd_config
