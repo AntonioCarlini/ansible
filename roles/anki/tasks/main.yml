@@ -1,24 +1,51 @@
 ---
 # tasks file for anki
 
-# TODO:
-# Configure for JPN
-# Add to panel favourites
-# investigate fixing kanji font: 誤
+- name: Load distribution-specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version | int }}.yml"
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+    - "default.yml"
 
-- name: Create the target directory
-  file:
-    path: /tmp/anki
-    state: directory
+- name: Install gnu make (and others)
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - xdg-utils
+    - " {{ make_package }}"
+  become: yes
 
-- name: Fetch and expand anki tarball
+- name: Fetch anki tarball
+  get_url:
+    url: "https://apps.ankiweb.net/downloads/current/anki-{{ anki_version }}-linux-amd64.tar.bz2"
+    dest: /tmp/anki.tar.bz2
+
+- name: Check to see if the tarball has already been expanded
+  stat:
+    path: /tmp/anki-{{ anki_version }}-linux-amd64
+  register: anki_archive_expanded
+
+- name: Expand anki tarball
   unarchive:
     remote_src: yes
-    src: https://apps.ankiweb.net/downloads/current/anki-2.1.19-linux-amd64.tar.bz2
-    dest: /tmp/anki
+    src: /tmp/anki.tar.bz2
+    dest: /tmp
+  when: not anki_archive_expanded.stat.exists
+
+- name: Record the time of the anki Makefile (if it exists)
+  stat:
+    path: /usr/local/share/anki/Makefile
+  register : usr_local_anki_makefile
+
+- name: Record the time of the installed anki Makefile
+  stat:
+    path: "/tmp/anki-{{ anki_version }}-linux-amd64/Makefile"
+  register : installer_anki_makefile
 
 - name: Build and install anki
-  shell : |
-    cd /tmp/anki/anki-2.1.19-linux-amd64
-    sudo make install
-
+  command : make -C "/tmp/anki-{{ anki_version }}-linux-amd64" install
+  when: (not usr_local_anki_makefile.stat.exists) or (usr_local_anki_makefile.stat.mtime != installer_anki_makefile.stat.mtime)
+  become: yes
