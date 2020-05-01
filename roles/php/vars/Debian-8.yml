@@ -1,0 +1,8 @@
+# valid for Debiam jessie
+php_intl_package_name: php5-intl
+php_mbstring_package_name:  libapache2-mod-php5  # Contains php-mbstring
+php_xml_package_name: php-xml-parser
+php_apcu_package_name: php5-apcu
+php_cli_package_name: php5-cli
+php_curl_package_name: php5-curl 
+php_gd_package_name: php5-gd

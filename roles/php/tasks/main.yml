@@ -4,12 +4,22 @@
 - name: Load distribution-specific variables
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+    - "{{ ansible_lsb.id | default('Undefined') }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_lsb.id | default('Undefined') }}.yml"
     - "{{ ansible_distribution }}.yml"
     - "{{ ansible_os_family }}.yml"
     - "default.yml"
 
-#  when: apache_package_name is not defined or apache_service_name is not defined
+- name: "Add universe repos for Ubuntu bionic/xenial"
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  loop:
+    - "deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} main universe"
+    - "deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-security main universe"
+    - "deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }}-updates main universe"
+  when: (ansible_distribution == "Ubuntu") and ((ansible_distribution_major_version == "18") or (ansible_distribution_major_version == "16"))
+  become: yes
 
 - name: Install PHP
   package:
@@ -24,5 +34,4 @@
     - "{{ php_curl_package_name }}"
     - "{{ php_gd_package_name }}"
   become: yes
-
 
