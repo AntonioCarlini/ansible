@@ -1,0 +1,5 @@
+---
+
+# variables for Debian
+
+python_mysql: python3-mysqldb

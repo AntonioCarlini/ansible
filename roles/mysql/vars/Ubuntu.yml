@@ -1,0 +1,5 @@
+---
+
+# variables for Ubuntu 18 onwards
+
+python_mysql: python3-mysqldb

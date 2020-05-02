@@ -1,22 +1,44 @@
 ---
 # tasks file for roles/mysql
 
+- name: Load distribution-specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version | int }}.yml"
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+
 - name: Install a MySQL database (mariadb)
   package:
-    name: "{{ item }}"
     state: present
-  loop:
-    - automysqlbackup
-    - mariadb-server
-    - php-mysql
+    name:
+      - automysqlbackup
+      - mariadb-server
+      - python-dev
+      - python-mysqldb
+      - python-pip
+      - python3-venv
+      - python3-pip
+      - python-setuptools
+      - python3-setuptools
+      - "{{ python_mysql }}"
   become: yes
 
-#sudo emacs -nw /etc/php/7.2/apache2/php.ini # upload_max_filesize = 20M
+- name: List pip modules
+  command: pip list
+  changed_when: no
+  register: pip_list
 
-#sudo mysql -u root -p # no root password so just hit RETURN
-#CREATE USER 'antonioc'@'localhost' IDENTIFIED BY 'antonioc';
-#CREATE DATABASE antonioc_wiki;
-#USE antonioc_wiki;
-#GRANT ALL ON antonioc_wiki.* TO 'antonioc'@'localhost';
-#quit
+- name: Install pymysql
+  pip:
+    name: PyMySQL
+  when: not "PyMySQL" in pip_list.stdout
+
+- include_tasks: secure-mysql.yml
+  tags:
+    - security
+
+- include_tasks: warn_password.yml
+  tags:
+    - security
 

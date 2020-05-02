@@ -1,2 +1,8 @@
 ---
 # defaults file for roles/mysql
+
+mysql_insecure_admin_password: "MustChangeDefaultPassword"
+
+mysql_admin_password: "{{ mysql_insecure_admin_password }}"
+
+mysql_admin_user: mysql_admin

@@ -1,0 +1,5 @@
+---
+
+# variables for Ubuntu 16
+
+python_mysql: python-mysqldb

@@ -1,0 +1,5 @@
+---
+
+# variables for CentOS
+
+python_mysql: MySQL-python
