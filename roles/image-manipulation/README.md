@@ -27,6 +27,13 @@ Example Playbook
       roles:
          - role: image-manipulation
 
+Test Matrix
+-----------
+
+Tested against:
+
+- Ubuntu 16.04
+
 License
 -------
 

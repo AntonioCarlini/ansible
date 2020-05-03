@@ -1,0 +1,4 @@
+---
+# packages for Debian
+
+pdftk_package: pdftk-java
