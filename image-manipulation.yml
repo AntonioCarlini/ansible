@@ -2,6 +2,3 @@
 - hosts: all
   roles:
     - role: image-manipulation
-
-
-    
