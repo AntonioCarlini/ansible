@@ -3,7 +3,7 @@ Role Name
 
 home-common
 
-Installs those items that are common to all home systems
+Installs those items that are common to all my home systems
 
 Requirements
 ------------
