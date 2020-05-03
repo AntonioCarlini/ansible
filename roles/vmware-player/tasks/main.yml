@@ -10,13 +10,12 @@
 
 - name: Install a few packages
   package:
-    name: "{{ item }}"
+    name:
+      - libxi6
+      - libxinerama1
+      - libxtst6
+      - x11-apps
     state: present
-  loop:
-    - libxi6
-    - libxinerama1
-    - libxtst6
-    - x11-apps
   become: yes
 
 - name: Create temp directory
