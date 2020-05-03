@@ -1,18 +1,25 @@
 ---
 # tasks file for ntp-client
 
+- name: Update apt
+  apt:
+    update_cache: yes
+  become: yes
+  when: ansible_pkg_mgr == "apt"
+  changed_when: False
+
 - name: Install ntp client
   package:
-    name: "{{ item }}"
+    name:
+      - ntp
+      - ntpstat
     state: present
-  loop:
-    - ntp
-    - ntpstat
   become: yes
 
 - name: Start ntp
-  shell: |
-    systemctl restart ntp
-    systemctl start ntp
+  systemd:
+    name: ntp
+    state: started
+    enabled: yes
   become: yes
 

@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include ntp-client"
+      include_role:
+        name: "ntp-client"
