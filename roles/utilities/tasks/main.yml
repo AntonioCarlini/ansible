@@ -11,8 +11,7 @@
 
 - name: Install various utilities
   package:
-    name: "{{ item }}"
+    name:
+      - anoise
     state: present
-  loop:
-    - anoise
   become: yes
