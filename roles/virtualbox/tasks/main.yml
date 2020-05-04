@@ -9,22 +9,27 @@
     - "{{ ansible_os_family }}.yml"
     - "default.yml"
 
-- name: Add the key for the Oracle repository
-  apt_key:
-    url: "{{ item }}"
-    state: present
-  become: yes
-  with_items:
-    - https://www.virtualbox.org/download/oracle_vbox.asc
-    - https://www.virtualbox.org/download/oracle_vbox_2016.asc
+# Perform the install of VirtualBox
+- include_tasks: "{{ ansible_os_family }}-Install.yml"
 
-- name: Add Oracle PPA for "{{ distro_release }}" and "{{ ansible_lsb.id }}"
-  apt_repository:
-    repo: deb http://download.virtualbox.org/virtualbox/debian bionic contrib
-    state: present
-  become: yes
+- name: Check for extensions
+  command: VBoxManage list extpacks
+  changed_when: False
+  register: vbox_extensions
 
-- name: Install VirtualBox
-  package:
-    name: virtualbox
+- name: Download Extension pack
+  get_url:
+    url: "https://download.virtualbox.org/virtualbox/{{ ext_pack_version }}/Oracle_VM_VirtualBox_Extension_Pack-{{ ext_pack_version }}.vbox-extpack"
+    dest: "/tmp/Oracle_VM_VirtualBox_Extension_Pack-{{ ext_pack_version }}.vbox-extpack"
+
+- name: Find the sha256sum of ./ExtPack-license.txt
+  shell: "tar xvf /tmp/Oracle_VM_VirtualBox_Extension_Pack-{{ ext_pack_version }}.vbox-extpack ./ExtPack-license.txt  --to-command sha256sum | sed -n 2p | cut -f 1 -d' '"
+  register: shasum
+  changed_when: false
+  args:
+    warn: false
+
+- name: Install VirtualBox extension pack
+  command: "VBoxManage extpack install --replace --accept-license={{ shasum.stdout }} /tmp/Oracle_VM_VirtualBox_Extension_Pack-{{ ext_pack_version }}.vbox-extpack"
   become: yes
+  when: not (("Oracle VM VirtualBox Extension Pack" in vbox_extensions.stdout) and (ext_pack_version in vbox_extensions.stdout))

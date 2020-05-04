@@ -1,2 +1,6 @@
 ---
 # vars file for virtualbox
+
+version: 6.1
+
+ext_pack_version: 6.1.0

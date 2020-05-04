@@ -1,0 +1,32 @@
+---
+
+# Installs VirtualBox package for debiansystems
+
+# Debian may not have gpg available, so install it to be sure
+- name: Install gnupg (may be needed to load the apt key)
+  package:
+    name: gnupg
+    state: present
+  become: yes
+
+- name: Add the key for the Oracle repository
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  become: yes
+  with_items:
+    - https://www.virtualbox.org/download/oracle_vbox.asc
+    - https://www.virtualbox.org/download/oracle_vbox_2016.asc
+
+- name: Add Oracle PPA for "{{ distro_release }}" (from vars/{{ ansible_lsb.id }})
+  apt_repository:
+    repo: "deb http://download.virtualbox.org/virtualbox/debian {{ distro_release }} contrib"
+    state: present
+  become: yes
+
+- name: Install VirtualBox
+  package:
+    name:
+      - "linux-headers-{{ ansible_kernel }}"
+      - "virtualbox-{{version}}"
+  become: yes

@@ -1,0 +1,44 @@
+---
+
+# Installs VirtualBox package for RedHat systems
+
+- name: Install additional tools that CentOS needs to have available
+  dnf: "{{ item }}"
+  loop:
+    - kernel-devel
+    - kernel-headers
+    - make
+    - patch
+    - gcc
+    - binutils
+    - libgomp
+    - glibc-headers
+    - glibc-devel
+    - dkms
+  become: yes
+
+- name: Enable the Oracle repo
+  get_url:
+    url: https://download.virtualbox.org/virtualbox/rpm/el/virtualbox.repo
+    dest: /etc/yum.repos.d/virtualbox.repo
+  become: yes
+
+- name: Add the key for the Oracle repository
+  rpm_key:
+    key: "{{ item }}"
+    state: present
+  become: yes
+  with_items:
+    - https://www.virtualbox.org/download/oracle_vbox.asc
+    - https://www.virtualbox.org/download/oracle_vbox_2016.asc
+
+- name: Add the EPEL repository
+  dnf:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+  become: yes
+
+- name: Install VirtualBox
+  package:
+    name:
+      - "VirtualBox-{{version}}"
+  become: yes

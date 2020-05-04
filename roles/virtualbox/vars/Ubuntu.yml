@@ -1,0 +1,4 @@
+---
+# valid for Ubuntu
+
+distro_release: "{{ ansible_distribution_release }}"
