@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Antonio Carlini
-  description: Installs anki
+  description: Installs an ntp client and some related tools
   license: license (Apache v2.0)
   min_ansible_version: 2.9
 
