@@ -3,7 +3,7 @@ Role Name
 
 vagrant
 
-Installs Vagrant (and VirtualBox as a dependency)
+Installs Vagrant
 
 Requirements
 ------------

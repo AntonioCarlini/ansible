@@ -4,4 +4,12 @@
 - name: Install Vagrant for 64-bit debian
   apt:
     deb: https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_x86_64.deb
+  when: ansible_pkg_mgr == "apt"
+  become: yes
+
+# Need to use "yum" rather than "dnf" to support CentOS 7
+- name: Install Vagrant for RedHat
+  yum:
+    name: https://releases.hashicorp.com/vagrant/2.2.6/vagrant_2.2.6_x86_64.rpm
+  when: (ansible_pkg_mgr == "dnf") or (ansible_pkg_mgr == "yum")
   become: yes
