@@ -28,5 +28,5 @@
   package:
     name:
       - "linux-headers-{{ ansible_kernel }}"
-      - "virtualbox-{{version}}"
+      - "virtualbox-{{ version }}"
   become: yes

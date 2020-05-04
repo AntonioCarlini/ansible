@@ -17,19 +17,26 @@
   changed_when: False
   register: vbox_extensions
 
-- name: Download Extension pack
+- name: Set a variable for ease of use later
+  set_fact:
+    ext_pack_name: "Oracle_VM_VirtualBox_Extension_Pack-{{ ext_pack_version }}.vbox-extpack"
+
+- name: Download Extension pack (named "{{ ext_pack_name }}")
   get_url:
-    url: "https://download.virtualbox.org/virtualbox/{{ ext_pack_version }}/Oracle_VM_VirtualBox_Extension_Pack-{{ ext_pack_version }}.vbox-extpack"
-    dest: "/tmp/Oracle_VM_VirtualBox_Extension_Pack-{{ ext_pack_version }}.vbox-extpack"
+    url: "https://download.virtualbox.org/virtualbox/{{ ext_pack_version }}/{{ ext_pack_name }}"
+    dest: "/tmp/{{ ext_pack_name }}"
 
 - name: Find the sha256sum of ./ExtPack-license.txt
-  shell: "tar xvf /tmp/Oracle_VM_VirtualBox_Extension_Pack-{{ ext_pack_version }}.vbox-extpack ./ExtPack-license.txt  --to-command sha256sum | sed -n 2p | cut -f 1 -d' '"
+  shell: |
+    set -o pipefail &&
+    tar xvf /tmp/"{{ ext_pack_name }}" ./ExtPack-license.txt  --to-command sha256sum | sed -n 2p | cut -f 1 -d' '
   register: shasum
   changed_when: false
   args:
     warn: false
+    executable: /bin/bash
 
 - name: Install VirtualBox extension pack
-  command: "VBoxManage extpack install --replace --accept-license={{ shasum.stdout }} /tmp/Oracle_VM_VirtualBox_Extension_Pack-{{ ext_pack_version }}.vbox-extpack"
+  command: "VBoxManage extpack install --replace --accept-license={{ shasum.stdout }} /tmp/{{ ext_pack_name }}"
   become: yes
   when: not (("Oracle VM VirtualBox Extension Pack" in vbox_extensions.stdout) and (ext_pack_version in vbox_extensions.stdout))

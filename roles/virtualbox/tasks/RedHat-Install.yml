@@ -40,5 +40,5 @@
 - name: Install VirtualBox
   package:
     name:
-      - "VirtualBox-{{version}}"
+      - "VirtualBox-{{ version }}"
   become: yes
