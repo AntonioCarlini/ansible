@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include prepare-ansible-target"
+      include_role:
+        name: "prepare-ansible-target"
