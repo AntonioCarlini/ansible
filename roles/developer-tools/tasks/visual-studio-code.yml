@@ -1,44 +1,47 @@
 ---
 # tasks to install Visual Studio Code
 
-- name: Get the Microsoft repository keys
-  get_url:
+- name: Install apt transport
+  package:
+    name:
+      - apt-transport-https
+    state: present
+  become: yes
+  when: ansible_pkg_mgr == "apt"
+
+- name: Install Microsoft key (apt)
+  apt_key:
     url: https://packages.microsoft.com/keys/microsoft.asc
-    dest: /tmp/packages.microsoft.asc
-
-- name: Make the Microsoft Visual Code repository available
-  shell: |
-    cat /tmp/packages.microsoft.asc | gpg --dearmor  > /tmp/packages.microsoft.gpg
-    sudo install -o root -g root -m 644 /tmp/packages.microsoft.gpg /usr/share/keyrings/
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" | sudo tee -a /etc/apt/sources.list.d/vscode.list > /dev/null
-    sudo apt-get update
-  args:
-    creates: /etc/apt/sources.list.d/vscode.list
-
-- name: Install packages for Visual Studio Code
-  package:
-    name: "{{ item }}"
-    state: present
-  loop:
-    - apt-transport-https
-    - code
-  become: yes
-
-- name: Install Visual Code
-  package:
-    name: code
     state: present
   become: yes
+  when: ansible_pkg_mgr == "apt"
 
-- name: Install extensions for Visual Studio Code
-  shell: code --install-extension "{{ item }}"
-  loop:
-    - DavidAnson.vscode-markdownlint
-    - KnisterPeter.vscode-github
-    - atlassian.atlascode
-    - ms-azuretools.vscode-docker
-    - ms-python.python
-    - ms-vscode-remote.vscode-remote-extensionpack
-    - ms-vscode.cpptools
-    - redhat.vscode-yaml
-    - rust-lang.rust
+- name: Install Microsoft key (rpm)
+  rpm_key:
+    key: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+  become: yes
+  when: ansible_os_family == "RedHat"
+
+- name: install VS Code repo (apt)
+  apt_repository:
+    repo: 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main'
+    filename: vscode.list
+    state: present
+  become: yes
+  when: ansible_pkg_mgr == "apt"
+
+- name: install VS Code repo (rpm)
+  copy:
+    src: redhat-vscode.repo
+    dest: /etc/yum.repos.d/vscode.repo
+  become: yes
+  when: ansible_os_family == "RedHat"
+
+- name: Install packages for Visual Studio Code, and then Visual Studio Code itself
+  package:
+    name:
+      - ca-certificates
+      - code
+    state: present
+  become: yes

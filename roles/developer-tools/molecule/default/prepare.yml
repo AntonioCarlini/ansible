@@ -1,0 +1,16 @@
+---
+
+# setup steps for molecule converge.
+
+- hosts: all
+  tasks:
+    - name: Create a user
+      user:
+        name: testuser
+        comment: Test user for molecule testing
+        system: no
+        createhome: yes
+        shell: /bin/bash
+        uid: 1050
+        state: present
+      become: yes

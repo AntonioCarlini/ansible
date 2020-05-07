@@ -1,30 +1,62 @@
 ---
 # tasks to install rust
 
-- name: Install packages for rust
+# Note: acl support is necessary on debian buster to allow becoming an unprivileged user
+
+- name: Install packages for rust (Debian)
   package:
-    name: "{{ item }}"
-    state: present
-  loop:
+    name:
     - libc6-dev
+    state: present
   become: yes
-  tags:
-    - rust
+  when: ansible_os_family == "Debian"
+
+- name: Install packages for rust (RedHat)
+  package:
+    name:
+    - glibc-devel
+    state: present
+  become: yes
+  when: ansible_os_family == "RedHat"
+
+- name: Install packages for rust (to prevent error when using 'become' with unprivileged user)
+  package:
+    name:
+    - acl
+    state: present
+  become: yes
 
 - name: Get the rust installer
   get_url:
     url: https://sh.rustup.rs
     dest: /tmp/sh.rustup.rs
-  tags:
-    - rust
+
+# To stay indempotent, only run the rustup installer if .cargo/bin does not exist for the specified user_account
+# Sadly 'become' doesn't run in an environment with an appropriate $HOME.
+# So find the user_account $HOME using the user module.
+# Note: there is deliberately no 'become' here so the will never be created here.
+
+- name: Use the user module to find the user_account details
+  user:
+    name: "{{ user_account }}"
+    state: present
+  register: user_record
+
+- name: Check for existence of cargo in {{ user_account }}'s $HOME
+  stat:
+    path: "{{ user_record.home }}/.cargo/bin"
+  changed_when: false
+  failed_when: false
+  register: cargo_bin
 
 - name: Run the rust installer
   command: sh /tmp/sh.rustup.rs -y
   become: yes
   become_user: "{{ user_account }}"
-  when: user_account is defined
-  tags:
-    - rust
+  when: not cargo_bin.stat.exists
+
+# There seems to be no way to know whether an update would be perfomed.
+# Do it, to be sure, but mark it as "no change" to maintain idempotence.
 
 - name: Update rust
   shell: |
@@ -32,9 +64,17 @@
     rustup update
   become: yes
   become_user: "{{ user_account }}"
-  when: user_account is defined
-  tags:
-    - rust
+  changed_when: false
+
+- name: Check for rustup default
+  shell: |
+    export PATH="$HOME/.cargo/bin:$PATH"
+    rustup default
+  become: yes
+  become_user: "{{ user_account }}"
+  changed_when: false
+  failed_when: false
+  register: rustup_default
 
 - name: Set rust default to nightly
   shell: |
@@ -42,6 +82,4 @@
     rustup default nightly
   become: yes
   become_user: "{{ user_account }}"
-  when: user_account is defined
-  tags:
-    - rust
+  when: not "nightly" in rustup_default.stdout

@@ -1,0 +1,14 @@
+---
+# Sets up a specific account, specified by 'user_account'.
+
+#- include_tasks: nix-shell.yml
+#  tags:
+#    - nix
+
+- include_tasks: rust.yml
+  tags:
+    - rust
+
+- include_tasks: vscode-extensions.yml
+  tags:
+    - vscode

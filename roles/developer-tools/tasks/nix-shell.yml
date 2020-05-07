@@ -6,5 +6,21 @@
     url: https://nixos.org/nix/install
     dest: /tmp/nix-shell.install
 
+# The nix install will try to create the /nix directory using sudo.
+# That's only going to work if the user account is setup for passwordless sudo.
+# So avoid the issue by creating the /nix directory for the user (with the approrpiate ownership)
+
+- name: Create nix directory for specified user
+  file:
+    path: /nix
+    group: "{{ user_account }}"
+    owner: "{{ user_account }}"
+    state: directory
+  become: yes
+
 - name: Run the nix-shell installer
   command: sh /tmp/nix-shell.install
+  args:
+    creates: /nix/var
+  become: yes
+  become_user: "{{ user_account }}"
