@@ -13,15 +13,10 @@ galaxy_info:
       versions:
         - 10
         - 9
-        - 8
     - name: Ubuntu
       versions:
         - 18.04
         - 16.04
-    - name: CentOS
-      versions:
-        - 8
-        - 7
   galaxy_tags: []
 
 dependencies: []
