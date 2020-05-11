@@ -1,0 +1,87 @@
+---
+# tasks file for roles/terraform
+
+- name: Install required utilities
+  package:
+    name:
+      - unzip
+    state: present
+  become: yes
+
+- name: Download Terraform zip file
+  get_url:
+    url: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
+    dest: "/tmp/terraform-{{ terraform_version }}.zip"
+    checksum: "sha256:https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_SHA256SUMS"
+
+- name: Extract Terraform executable
+  unarchive:
+    remote_src: yes
+    src: "/tmp/terraform-{{ terraform_version }}.zip"
+    dest: /tmp
+
+- name: Grab installed version (if any)
+  command: terraform --version
+  register: installed_tf
+  failed_when: false
+  changed_when: false
+
+- name: Grab downloaded version
+  command: /tmp/terraform --version
+  register: tmp_tf
+  failed_when: false
+  changed_when: false
+
+- name: Find Terraform versions
+  set_fact:
+    installed_version: "{{ installed_tf.stdout_lines[0].split()[1].split('v')[1] }}"
+  when: installed_tf.rc == 0
+
+- name: Find Terraform versions
+  set_fact:
+    downloaded_version: "{{ tmp_tf.stdout_lines[0].split()[1].split('v')[1] }}"
+
+- name: Display installed
+  debug: var=installed_version
+
+- name: Display downloaded
+  debug: var=downloaded_version
+
+- name: Move the Terraform executable ({{ downloaded_version }}) to the right place
+  command: cp /tmp/terraform /usr/local/bin/terraform
+  become: yes
+  when: (installed_tf.rc != 0) or (installed_version is version(downloaded_version, "<"))
+
+- name: Install Terraform providers
+  package:
+    name:
+      - bridge-utils
+      - libguestfs-tools
+      - libvirt-bin
+      - qemu-kvm
+      - virt-manager
+      - virt-top
+      - virtinst
+    state: present
+  become: yes
+
+- name: modprobe vhost_net for performance
+  modprobe:
+    name: vhost_net
+    state: present
+  become: yes
+
+- name: Permanently load vhost_net kernel module for performance
+  lineinfile:
+    path: /etc/modules
+    line: 'vhost_net'
+    insertbefore: EOF
+  become: yes
+
+- name: Enable libvirtd service
+  systemd:
+    name: libvirtd
+    state: started
+  become: yes
+
+- include_tasks: libvirt-provider.yml

@@ -1,0 +1,12 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+platforms:
+  - name: mint-19
+    box: boxcycler/linuxmint-19-cinnamon-64bit-v2-release
+provisioner:
+  name: ansible
+verifier:
+  name: testinfra

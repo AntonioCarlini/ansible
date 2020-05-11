@@ -1,0 +1,4 @@
+---
+# vars file for roles/terraform
+
+terraform_version: "0.12.24"

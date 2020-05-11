@@ -1,0 +1,47 @@
+---
+# Handles installation of the libvirt terraform provider
+
+- name: Install Terraform providers
+  package:
+    name:
+      - git
+      - golang
+      - libvirt-dev
+    state: present
+  become: yes
+
+# The terraform libvirt provider comes from: https://github.com/dmacvicar/terraform-provider-libvirt.git
+
+- name: Add the repository key
+  apt_key:
+    url: "http://download.opensuse.org/repositories/systemsmanagement:/terraform/Ubuntu_18.04/Release.key"
+    state: present
+  when: ansible_pkg_mgr == "apt"
+  become: yes
+
+- name: Add the provider repository
+  apt_repository:
+    repo: 'deb http://download.opensuse.org/repositories/systemsmanagement:/terraform/Ubuntu_18.04/ /'
+    filename: systemsmanagement:terraform.list
+    state: present
+  become: yes
+  when: ansible_pkg_mgr == "apt"
+
+- name: Install the provider
+  package:
+    name: terraform-provider-libvirt
+    state: present
+  become: yes
+
+# Turn off SElinux security driver for libvirt.
+# The security driver needs to be turned off because it will prevent libvirt from creating a libvirt-domain.
+- name: Adjust security to allow libvirt-domain
+  replace:
+    path: /etc/libvirt/qemu.conf
+    regexp: '^#?security_driver\s*=\s*.selinux.'
+    replace: security_driver = “none”
+  become: yes
+  notify: Reload libvirtd
+
+# Make sure that libvirtd is reloaded *now*
+- meta: flush_handlers
