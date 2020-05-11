@@ -27,7 +27,7 @@
   when: ansible_distribution == "Ubuntu"
   become: yes
 
-# Ubuntu will not run pip properly if the local is wrong, so try to fix it
+# Ubuntu will not run pip properly if the locale is wrong, so try to fix it
 - name: "Fix locale"
   locale_gen:
     name: en_GB.UTF-8
