@@ -2,4 +2,10 @@
 
 # variables for Ubuntu 16
 
+python_dev: python-dev
+python_pip: python-pip
+python_venv: python3-venv
+python_setuptools: python-setuptools
 python_mysql: python-mysqldb
+
+pip_command: pip

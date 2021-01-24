@@ -2,4 +2,10 @@
 
 # variables for CentOS
 
+python_dev: python-dev
+python_pip: python-pip
+python_venv: python3-venv
+python_setuptools: python-setuptools
 python_mysql: MySQL-python
+
+pip_command: pip

@@ -4,9 +4,9 @@
 - name: Load distribution-specific variables
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version | int }}.yml"
-    - "{{ ansible_distribution }}.yml"
-    - "{{ ansible_os_family }}.yml"
+    - "{{ ansible_lsb.id | default('Undefined') }}-{{ ansible_distribution_major_version }}.yml"     # e.g. "Linuxmint-20.yml"
+    - "{{ ansible_distribution }}.yml"                                                               # e.g. "Linux Mint.yml"
+    - "{{ ansible_os_family }}.yml"                                                                  # e.g. "Debian.yml"
 
 - name: Install a MySQL database (mariadb)
   package:
@@ -14,18 +14,15 @@
     name:
       - automysqlbackup
       - mariadb-server
-      - python-dev
-      - python-mysqldb
-      - python-pip
-      - python3-venv
-      - python3-pip
-      - python-setuptools
-      - python3-setuptools
+      - "{{ python_venv }}"
+      - "{{ python_pip }}"
+      - "{{ python_setuptools }}"
+      - "{{ python_dev }}"
       - "{{ python_mysql }}"
   become: yes
 
 - name: List pip modules
-  command: pip list
+  command: '{{ pip_command }} list'
   changed_when: no
   register: pip_list
 

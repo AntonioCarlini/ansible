@@ -4,10 +4,10 @@
 - name: Load distribution-specific variables
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_lsb.id | default('Undefined') }}-{{ ansible_distribution_major_version }}.yml"
-    - "{{ ansible_lsb.id | default('Undefined') }}.yml"
-    - "{{ ansible_distribution }}.yml"
-    - "{{ ansible_os_family }}.yml"
+    - "{{ ansible_lsb.id | default('Undefined') }}-{{ ansible_distribution_major_version }}.yml"     # e.g. "Linuxmint-20.yml"
+    - "{{ ansible_lsb.id | default('Undefined') }}.yml"                                              # e.g. "Linuxmint.yml"
+    - "{{ ansible_distribution }}.yml"                                                               # e.g. "Linux Mint.yml"
+    - "{{ ansible_os_family }}.yml"                                                                  # e.g. "Debian.yml"
     - "default.yml"
 
 - name: "Add universe repos for Ubuntu bionic/xenial"
