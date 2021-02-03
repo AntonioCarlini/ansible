@@ -1,2 +1,2 @@
-# packages for Debian
-make_package: make
+# packages for Ubuntu
+make_package: build-essential

@@ -9,6 +9,13 @@
     - "{{ ansible_os_family }}.yml"
     - "default.yml"
 
+- name: Update apt
+  apt:
+    update_cache: yes
+  become: yes
+  when: ansible_pkg_mgr == "apt"
+  changed_when: False
+
 - name: Install gnu make (and others)
   package:
     name: "{{ item }}"
@@ -20,8 +27,11 @@
 
 - name: Fetch anki tarball
   get_url:
-    url: "https://apps.ankiweb.net/downloads/current/anki-{{ anki_version }}-linux-amd64.tar.bz2"
+    url: "https://github.com/ankitects/anki/releases/download/{{ anki_version }}/anki-{{anki_version }}-linux-amd64.tar.bz2"
     dest: /tmp/anki.tar.bz2
+
+
+
 
 - name: Check to see if the tarball has already been expanded
   stat:
