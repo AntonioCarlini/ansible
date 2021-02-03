@@ -18,16 +18,16 @@
 
 - name: Install gnu make (and others)
   package:
-    name: "{{ item }}"
+    name:
+      - xdg-utils
+      - " {{ make_package }}"
+      - bzip2
     state: present
-  loop:
-    - xdg-utils
-    - " {{ make_package }}"
   become: yes
 
 - name: Fetch anki tarball
   get_url:
-    url: "https://github.com/ankitects/anki/releases/download/{{ anki_version }}/anki-{{anki_version }}-linux-amd64.tar.bz2"
+    url: "https://github.com/ankitects/anki/releases/download/{{ anki_version }}/anki-{{ anki_version }}-linux-amd64.tar.bz2"
     dest: /tmp/anki.tar.bz2
 
 
