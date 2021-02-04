@@ -1,0 +1,5 @@
+---
+# vars file for roles/webserver under RedHat
+
+webserver_package: httpd
+mod_php_package: mod_php

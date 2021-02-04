@@ -1,0 +1,5 @@
+---
+# vars file for roles/webserver under Debian
+
+webserver_package: apache2
+mod_php_package: libapache2-mod-php
