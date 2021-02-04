@@ -1,4 +1,6 @@
-# valid for Debiam buster
+---
+# vars for Linux Mint 20.1
+
 php_intl_package_name: php-intl
 php_mbstring_package_name: php-mbstring
 php_xml_package_name: php-xml

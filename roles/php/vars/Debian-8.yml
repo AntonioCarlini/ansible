@@ -1,4 +1,6 @@
-# valid for Debiam jessie
+---
+# vars for Debiam jessie
+
 php_intl_package_name: php5-intl
 php_mbstring_package_name:  libapache2-mod-php5  # Contains php-mbstring
 php_xml_package_name: php-xml-parser

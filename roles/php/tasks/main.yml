@@ -23,15 +23,14 @@
 
 - name: Install PHP
   package:
-    name: "{{ item }}"
+    name:
+      - "{{ php_intl_package_name }}"
+      - "{{ php_mbstring_package_name }}"
+      - "{{ php_xml_package_name }}"
+      - "{{ php_apcu_package_name }}"
+      - "{{ php_cli_package_name }}"
+      - "{{ php_curl_package_name }}"
+      - "{{ php_gd_package_name }}"
     state: present
-  loop:
-    - "{{ php_intl_package_name }}"
-    - "{{ php_mbstring_package_name }}"
-    - "{{ php_xml_package_name }}"
-    - "{{ php_apcu_package_name }}"
-    - "{{ php_cli_package_name }}"
-    - "{{ php_curl_package_name }}"
-    - "{{ php_gd_package_name }}"
   become: yes
 

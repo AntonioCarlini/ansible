@@ -1,4 +1,6 @@
-# valid for Debiam stretch
+---
+# vars for Debiam stretch
+
 php_intl_package_name: php7.0-intl
 php_mbstring_package_name: php7.0-intl   # Available by default?
 php_xml_package_name: php7.0-xml

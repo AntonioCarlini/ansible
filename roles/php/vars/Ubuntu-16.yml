@@ -1,3 +1,6 @@
+---
+# vars for Ubuntu 16.04
+
 php_intl_package_name: php7.0-intl
 php_mbstring_package_name: php7.0-mbstring
 php_xml_package_name: php7.0-xml
