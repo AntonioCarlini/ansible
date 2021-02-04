@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: Antonio Carlini
   description: Installs tools to help with studying and using Japanese
@@ -5,11 +6,20 @@ galaxy_info:
   min_ansible_version: 2.9
 
   platforms:
+    - name: Linux Mint
+      versions:
+	- 20.1
+        - 19.1
+    - name: Ubuntu
+      versions:
+	- 20.04
+	- 18.04
+	- 16.04
     - name: Debian
       versions:
         - 10
         - 9
 
-galaxy_tags: []
+  galaxy_tags: []
 
 dependencies: []
