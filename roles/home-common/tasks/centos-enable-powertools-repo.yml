@@ -1,0 +1,22 @@
+---
+# task to enable the CentOS powertools repo (needed for a munin-node dependency)
+
+# Taken from https://code.mythtv.org/trac/ticket/13492 and tweaked to use yum (for CentOS 7)
+- name: check if CentOS PowerTools repo enabled
+  shell:            /usr/bin/dnf -q repolist --enabled powertools && echo disabled || echo enabled
+  register:         powertools
+
+- name: enable CentOS PowerTools repository for epel
+  command: yum config-manager --set-enabled powertools
+  when: powertools.stdout == "disabled"
+
+# Ubuntu 20.04 needs this, CentOS must not try this
+- name: Install locales
+  package:
+    name:
+      - locales
+    state: present
+  become: yes
+  tags:
+    - packages
+  when: (ansible_distribution == "Ubuntu")

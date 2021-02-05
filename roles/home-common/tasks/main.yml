@@ -1,17 +1,46 @@
 ---
 # tasks file for roles/home-common
 
+# Need this for CentOS to install a munin-node dependency
+- name: Install EPEL repo for CentOS
+  yum:
+    name:
+      - epel-release
+      - dnf-plugins-core
+    state: present
+  become: yes
+  when: (ansible_distribution == "CentOS")
+
+- include_tasks: centos-enable-powertools-repo.yml
+  when: (ansible_distribution == "CentOS")
+
 - name: Install Standard Packages
   package:
-    name: "{{ item }}"
+    name:
+      - perl
+      - munin-node
+      - nano
+      - openssh-server        # this more or less has to be present for ansible to work, so this is more of a statement that it is required
     state: present
-  loop:
-    - munin-node
-    - nano
-    - openssh-server        # this more or less has to be present for ansible to work, so this is more of a statement that it is required
   become: yes
   tags:
     - packages
+
+# Debian 10/9 need locales (CentOS must not try to install this)
+#
+# LM 19.1 and Ubuntu 16.04/18.04 are missing /usr/share/zoneinfo, but the ansible timezone module
+# (available here https://galaxy.ansible.com/community/general) checks that the timezone set is valid by looking in this directory.
+# Installing tzdata should provide the directory and remove the failure.
+- name: Install locales (LM needs this for timezones)?
+  package:
+    name:
+      - locales
+      - tzdata
+    state: present
+  become: yes
+  tags:
+    - packages
+  when: (ansible_os_family == "Debian")
 
 # This used to be done with 'cp /usr/share/zoneinfo/Europe/London /etc/localtime' but that's no longer necessary
 # Then it was done using timedatctl.
@@ -21,7 +50,7 @@
   become: yes
   tags:
     - timezone
-
+  
 - name: Restrict root login via ssh
   lineinfile:
     path: /etc/ssh/sshd_config
@@ -41,6 +70,8 @@
   tags:
     - sudo
 
+# CentOS cannot do this and probably never will: https://github.com/ansible/ansible/issues/44708
 - include_tasks: fix-locale.yml
+  when: (ansible_distribution != "CentOS")
   tags:
     - locale

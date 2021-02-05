@@ -1,7 +1,7 @@
 ---
 # tasks to fix locale. Ensures that en_GB is a valid locale
 
-
+# CentOS cannot do this and probably never will: https://github.com/ansible/ansible/issues/44708
 - name: Ensure that the en_GB.UTF-8 locale exists
   locale_gen:
     name: en_GB.UTF-8
