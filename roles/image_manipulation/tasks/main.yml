@@ -1,0 +1,23 @@
+---
+# tasks file for roles/image_manipulation
+
+- name: Read platform-dependent variables
+  include_vars: "{{ item }}"
+  with_fileglob:
+       - "vars/{{ ansible_os_family }}-family.yml"
+       - "vars/{{ ansible_distribution | replace(' ','') }}.yml"
+       - "vars/{{ ansible_distribution | replace(' ','') }}-{{ ansible_distribution_major_version }}.yml"
+
+- name: Install various utilities useful for processing scanned images
+  package:
+    name:
+      - gcc
+      - "{{ imagemagick_package }}"
+      - mupdf-tools
+      - pdfshuffler
+      - php
+      - php-common
+      - php-imagick
+      - rawtherapee
+    state: present
+  become: yes

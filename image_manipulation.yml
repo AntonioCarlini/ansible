@@ -1,0 +1,4 @@
+---
+- hosts: all
+  roles:
+    - role: image_manipulation

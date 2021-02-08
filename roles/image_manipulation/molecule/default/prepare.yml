@@ -1,0 +1,12 @@
+---
+
+- name: Updated packages for hosts that use apt
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Update apt
+      apt:
+        update_cache: yes
+      become: yes
+      when: ansible_pkg_mgr == "apt"
+      changed_when: false

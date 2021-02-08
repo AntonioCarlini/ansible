@@ -12,5 +12,5 @@
   roles:
     - role: collaboration-tools
     - role: developer-tools
-    - role: image-manipulation
+    - role: image_manipulation
     - role: utilities

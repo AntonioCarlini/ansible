@@ -18,7 +18,7 @@
     - role: japanese
     - role: developer-tools
     - role: document-tools
-    - role: image-manipulation
+    - role: image_manipulation
     - role: utilities
 
     

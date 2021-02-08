@@ -27,7 +27,7 @@ This table lists the available roles and the platforms on which they have been t
 | [home-common](roles/home-common?README.md)                   |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [home-station](roles/home-station/REDAME.md)                 |                |          |       |            |            |        |        |        |        |        |        |        |
 | [imagemagick-fixup](roles/imagemagick-fixup/README.md)       |      Role      |     Y    |   Y   |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
-| [image-manipulation](roles/image-manipulation/README.md)     |                |          |       |            |            |        |        |        |        |        |        |        |
+| [image_manipulation](roles/image_manipulation/README.md)     |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    N   |    N   |
 | [japanese](roles/japanese/README.md)                         |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    N   |    N   |
 | [mediawiki](roles/mediawiki/README.md)                       |                |          |       |            |            |        |        |        |        |        |        |        |
 | [mysql](roles/mysql/README.md)                               |                |          |       |            |            |        |        |        |        |        |        |        |
