@@ -1,0 +1,4 @@
+---
+- hosts: all
+  roles:
+    - role: imagemagick-fixup.yml

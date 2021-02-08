@@ -1,0 +1,4 @@
+---
+# vars file for roles/imagemagick-fixup
+
+imagemagick_package: imagemagick

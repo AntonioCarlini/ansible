@@ -1,0 +1,32 @@
+---
+# tasks file for roles/imagemagick-fixup
+
+# CentOS needs the EPEL repository to find imagemagick/graphicsmagic
+- name: Install EPEL repository for CentOS
+  package:
+    name: epel-release
+    state: present
+  become: yes
+  when: ansible_os_family == "RedHat"
+
+- name: Read platform-dependent variables
+  include_vars: "{{ item }}"
+  with_fileglob:
+        - "vars/{{ ansible_os_family }}-family.yml"
+        - "vars/{{ ansible_distribution | replace(' ','') }}.yml"
+        - "vars/{{ ansible_distribution | replace(' ','') }}-{{ ansible_distribution_major_version }}.yml"
+
+- name: Install imagemagick
+  package:
+    name:
+      - "{{ imagemagick_package }}"
+    state: present
+  become: yes
+
+
+- name: Adjust the PDF policy line to allow reading and writing
+  lineinfile:
+    path: /etc/ImageMagick-6/policy.xml
+    regexp: '^\s*#?\s*<policy\s+domain="coder"\s+rights="none"\s+pattern="PDF"\s*/>'
+    line: <policy domain="coder" rights="read|write" pattern="PDF" />
+  become: yes
