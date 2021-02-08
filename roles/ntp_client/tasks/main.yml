@@ -1,5 +1,5 @@
 ---
-# tasks file for ntp-client
+# tasks file for ntp_client
 
 - name: Update apt
   apt:
@@ -16,10 +16,9 @@
     state: present
   become: yes
 
-- name: Start ntp
-  systemd:
+- name: Start ntp (using service)
+  service:
     name: ntp
     state: started
     enabled: yes
   become: yes
-

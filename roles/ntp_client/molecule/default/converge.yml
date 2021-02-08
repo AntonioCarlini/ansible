@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include ntp-client"
+    - name: "Include ntp_client"
       include_role:
-        name: "ntp-client"
+        name: "ntp_client"

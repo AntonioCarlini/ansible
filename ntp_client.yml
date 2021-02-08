@@ -1,4 +1,4 @@
 ---
 - hosts: all
   roles:
-    - role: ntp-client
+    - role: ntp_client

@@ -1,9 +1,9 @@
 Role Name
 =========
 
-ntp-client
+ntp_client
 
-Installs an ntp client and some related tools
+Installs an NTP client and some related tools
 
 Requirements
 ------------
@@ -25,7 +25,7 @@ Example Playbook
 
     - hosts: all
       roles:
-         - role: ntp-client
+         - role: ntp_client
 
 License
 -------
