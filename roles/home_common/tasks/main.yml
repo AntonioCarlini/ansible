@@ -1,5 +1,5 @@
 ---
-# tasks file for roles/home-common
+# tasks file for roles/home_common
 
 # Need this for CentOS to install a munin-node dependency
 - name: Install EPEL repo for CentOS

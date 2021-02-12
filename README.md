@@ -24,7 +24,7 @@ This table lists the available roles and the platforms on which they have been t
 | [collaboration-tools](roles/collaboration-tools/README.md)   |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    N   |    Y   |    Y   |    N   |    N   |
 | [developer_tools](roles/developer_tools/README.md)           |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [document-tools](roles/document-tools/README.md)             |                |          |       |            |            |        |        |        |        |        |        |        |
-| [home-common](roles/home-common?README.md)                   |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
+| [home_common](roles/home_common?README.md)                   |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [home-station](roles/home-station/REDAME.md)                 |                |          |       |            |            |        |        |        |        |        |        |        |
 | [imagemagick-fixup](roles/imagemagick-fixup/README.md)       |      Role      |     Y    |   Y   |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [image_manipulation](roles/image_manipulation/README.md)     |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    N   |    N   |

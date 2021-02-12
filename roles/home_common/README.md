@@ -1,7 +1,7 @@
 Role Name
 =========
 
-home-common
+home_common
 
 Installs those items that are common to all my home systems
 
@@ -25,7 +25,7 @@ Example Playbook
 
     - hosts: all
       roles:
-         - role: home-common
+         - role: home_common
 
 License
 -------
