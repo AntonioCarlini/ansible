@@ -1,0 +1,54 @@
+---
+# tasks file for visual_studio_code
+
+# This handles system-level installation
+
+- name: Install apt transport
+  package:
+    name:
+      - apt-transport-https
+      - gnupg
+    state: present
+  become: yes
+  when: ansible_pkg_mgr == "apt"
+
+- name: Install Microsoft key (apt)
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+  become: yes
+  when: ansible_pkg_mgr == "apt"
+
+- name: Install Microsoft key (rpm)
+  rpm_key:
+    key: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+  become: yes
+  when: ansible_os_family == "RedHat"
+
+- name: install VS Code repo (apt)
+  apt_repository:
+    repo: 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main'
+    filename: vscode.list
+    state: present
+  become: yes
+  when: ansible_pkg_mgr == "apt"
+
+- name: install VS Code repo (rpm)
+  copy:
+    src: redhat-vscode.repo
+    dest: /etc/yum.repos.d/vscode.repo
+  become: yes
+  when: ansible_os_family == "RedHat"
+
+- name: Install packages for Visual Studio Code, and then Visual Studio Code itself
+  package:
+    name:
+      - ca-certificates
+      - code
+    state: present
+  become: yes
+
+
+- include_tasks: vscode-extensions.yml
+  when: (not user_account is defined)

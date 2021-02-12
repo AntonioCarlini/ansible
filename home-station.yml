@@ -16,7 +16,7 @@
   roles:
     - role: anki
     - role: japanese
-    - role: developer-tools
+    - role: developer_tools
     - role: document-tools
     - role: image_manipulation
     - role: utilities

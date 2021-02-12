@@ -1,0 +1,5 @@
+---
+# vars file for visual_studio_code on RedHat
+
+libx11_xcb_package: libX11-devel
+libasound2_package: libX11-devel    # CentOS does not have libasound2 but also does not need it, so just re-specify another package

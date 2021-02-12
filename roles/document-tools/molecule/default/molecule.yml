@@ -2,20 +2,22 @@
 dependency:
   name: galaxy
 driver:
-  name: vagrant
+  name: docker
 platforms:
-  - name: ubuntu-18.04
-    box: ubuntu/bionic64
-  - name: ubuntu-16.04
-    box: ubuntu/xenial64
-  - name: debian-10
-    box: debian/buster64
-  - name: debian-9
-    box: debian/stretch64
-  - name: debian-8
-    box: debian/jessie64
-  - name: centos-7
-    box: centos/7
+  - name:  mint-20.1
+    image: linuxmintd/mint20.1-amd64
+  - name:  mint-19.1
+    image: linuxmintd/mint19.1-amd64
+#  - name:  ubuntu-20.04
+#    image: ubuntu:20.04
+#  - name:  ubuntu-18.04
+#    image: ubuntu:18.04
+#  - name:  ubuntu-16.04
+#    image: ubuntu:16.04
+#  - name:  debian-10
+#    image: debian:buster-slim
+#  - name:  debian-9
+#    image: debian:stretch-slim
 provisioner:
   name: ansible
 verifier:

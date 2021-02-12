@@ -1,0 +1,43 @@
+---
+# tasks to install Visual Studio Code Extensions for a specified user
+
+# This is a per-user installation.
+
+# Without these packages, running "code" under molecule/ansible seems to fail
+- name: Install required packages
+  package:
+    name:
+      - "{{ libx11_xcb_package }}"
+      - "{{ libasound2_package }}"
+    state: present
+  become: yes
+
+- name: Check for {{ user_account }} Visual Studio Code extensions
+  command: code --list-extensions
+  become: yes
+  become_method: sudo
+  become_user: "{{ user_account }}"
+  vars:
+    allow_world_readable_tmpfiles: true
+  changed_when: false
+  register: vscode_extensions
+
+# To make this code idempotent, avoid installing if one extension is already present
+- name: Install extensions for Visual Studio Code
+  command: code --install-extension "{{ item }}"
+  become: yes
+  become_method: sudo
+  become_user: "{{ user_account }}"
+  vars:
+    allow_world_readable_tmpfiles: true
+  when: not item in vscode_extensions.stdout
+  loop:
+    - DavidAnson.vscode-markdownlint
+    - KnisterPeter.vscode-github
+    - atlassian.atlascode
+    - ms-azuretools.vscode-docker
+    - ms-python.python
+    - ms-vscode-remote.vscode-remote-extensionpack
+    - ms-vscode.cpptools
+    - redhat.vscode-yaml
+    - rust-lang.rust

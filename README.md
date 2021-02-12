@@ -22,7 +22,7 @@ This table lists the available roles and the platforms on which they have been t
 |--------------------------------------------------------------|----------------|----------|-------|------------|------------|--------|--------|--------|--------|--------|--------|--------|
 | [anki](roles/anki/README.md)                                 |      Role      |     Y    |   Y   |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [collaboration-tools](roles/collaboration-tools/README.md)   |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    N   |    Y   |    Y   |    N   |    N   |
-| [developer-tools](roles/developer-tools/README.md)           |                |          |       |            |            |        |        |        |        |        |        |        |
+| [developer_tools](roles/developer_tools/README.md)           |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [document-tools](roles/document-tools/README.md)             |                |          |       |            |            |        |        |        |        |        |        |        |
 | [home-common](roles/home-common?README.md)                   |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [home-station](roles/home-station/REDAME.md)                 |                |          |       |            |            |        |        |        |        |        |        |        |
@@ -31,12 +31,15 @@ This table lists the available roles and the platforms on which they have been t
 | [japanese](roles/japanese/README.md)                         |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    N   |    N   |
 | [mediawiki](roles/mediawiki/README.md)                       |                |          |       |            |            |        |        |        |        |        |        |        |
 | [mysql](roles/mysql/README.md)                               |                |          |       |            |            |        |        |        |        |        |        |        |
+| [nix](roles/nix/README.md)                                   |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [ntp_client](roles/ntp_client/README.md)                     |      Role      |     Y    |       |      N     |      N     |    Y   |    Y   |    Y   |    Y   |    Y   |    N   |    N   |
 | [php](roles/php/README.md)                                   |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [prepare-ansible-target](prepare-ansible-target.README.md)   |    Playbook    |          |       |            |            |        |        |        |        |        |        |        |
+| [rust](roles/rust/README.md)                                 |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [utilities](roles/utilities/README.md)                       |                |          |       |            |            |        |        |        |        |        |        |        |
 | [vagrant](roles/vagrant/README.md)                           |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [virtualbox](roles/virtualbox/README.md)                     |                |          |       |            |            |        |        |        |        |        |        |        |
+| [visual_studio_code](roles/visual_studio_code/README.md      |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [vmware-host](roles/vmware-host/README.md)                   |                |          |       |            |            |        |        |        |        |        |        |        |
 | [vmware-player](roles/vmware-player/README.md)               |                |          |       |            |            |        |        |        |        |        |        |        |
 | [vpn-station](roles/vpn-station/README.md)                   |                |          |       |            |            |        |        |        |        |        |        |        |

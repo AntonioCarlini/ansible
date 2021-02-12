@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include visual_studio_code"
+      include_role:
+        name: "visual_studio_code"

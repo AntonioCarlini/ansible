@@ -1,0 +1,5 @@
+---
+# vars file for visual_studio_code
+
+libx11_xcb_package: libx11-xcb-dev
+libasound2_package: libasound2
