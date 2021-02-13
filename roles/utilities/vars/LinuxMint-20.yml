@@ -1,0 +1,5 @@
+---
+# vars file for roles/utilities for Linux Mint 20.*
+
+codename: focal
+

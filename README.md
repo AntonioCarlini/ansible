@@ -36,7 +36,7 @@ This table lists the available roles and the platforms on which they have been t
 | [php](roles/php/README.md)                                   |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [prepare-ansible-target](prepare-ansible-target.README.md)   |    Playbook    |          |       |            |            |        |        |        |        |        |        |        |
 | [rust](roles/rust/README.md)                                 |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
-| [utilities](roles/utilities/README.md)                       |                |          |       |            |            |        |        |        |        |        |        |        |
+| [utilities](roles/utilities/README.md)                       |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    N   |    N   |    N   |    N   |
 | [vagrant](roles/vagrant/README.md)                           |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [virtualbox](roles/virtualbox/README.md)                     |                |          |       |            |            |        |        |        |        |        |        |        |
 | [visual_studio_code](roles/visual_studio_code/README.md      |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |

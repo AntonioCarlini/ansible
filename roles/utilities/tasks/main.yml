@@ -2,16 +2,31 @@
 # tasks file for roles/utilities
 
 # TODO:  anoise-gui fails to install
-# TODO:  keypass2 fails to install
 
-- name: Add anoise PPA
+- name: Install pre-requisite utilities
+  package:
+    name:
+      - gnupg2
+    state: present
+  become: yes
+
+- name: Read platform-dependent variables
+  include_vars: "{{ item }}"
+  with_fileglob:
+        - "vars/{{ ansible_os_family }}-family.yml"
+        - "vars/{{ ansible_distribution | replace(' ','') }}.yml"
+        - "vars/{{ ansible_distribution | replace(' ','') }}-{{ ansible_distribution_major_version }}.yml"
+
+- name: Add anoise PPA (for codename "{{ codename }}")
   apt_repository:
     repo: ppa:costales/anoise
+    codename: "{{ codename }}"
   become: yes
 
 - name: Install various utilities
   package:
     name:
       - anoise
+      - keepassx
     state: present
   become: yes

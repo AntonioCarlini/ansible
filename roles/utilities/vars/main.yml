@@ -1,2 +1,4 @@
 ---
 # vars file for roles/utilities
+
+codename: "{{ ansible_distribution_release }}"
