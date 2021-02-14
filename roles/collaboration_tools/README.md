@@ -31,7 +31,7 @@ Example Playbook
 
     - hosts: all
       roles:
-         - role: collaboration-tools
+         - role: collaboration_tools
 
 License
 -------

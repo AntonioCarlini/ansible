@@ -1,5 +1,5 @@
 ---
-# tasks file for roles/collaboration-tools
+# tasks file for roles/collaboration_tools
 
 - name: Download Skype
   get_url:

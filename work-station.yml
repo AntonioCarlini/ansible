@@ -10,7 +10,7 @@
         - tree
       become: yes
   roles:
-    - role: collaboration-tools
+    - role: collaboration_tools
     - role: developer_tools
     - role: image_manipulation
     - role: utilities
