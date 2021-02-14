@@ -1,7 +1,0 @@
----
-- name: Converge
-  hosts: all
-  tasks:
-    - name: "Include vmware-player"
-      include_role:
-        name: "vmware-player"

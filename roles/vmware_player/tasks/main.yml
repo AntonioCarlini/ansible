@@ -1,5 +1,5 @@
 ---
-# tasks file for roles/vmware-player
+# tasks file for roles/vmware_player
 
 # this is a combination of an existing script and an ansible role found at: https://github.com/vmware-archive/ansible-role-vmware-workstation
 

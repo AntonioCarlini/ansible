@@ -1,4 +1,4 @@
 ---
-# vars file for roles/vmware-player
+# vars file for roles/vmware_player
 
 vmware_tempdir: /tmp/workstation-downloads

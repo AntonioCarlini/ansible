@@ -1,7 +1,7 @@
 Role Name
 =========
 
-vmware-player
+vmware_player
 
 Installs VMware player
 
@@ -25,7 +25,7 @@ Example Playbook
 
     - hosts: all
       roles:
-         - role: vmware-player
+         - role: vmware_player
 
 License
 -------
