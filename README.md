@@ -40,8 +40,8 @@ This table lists the available roles and the platforms on which they have been t
 | [vagrant](roles/vagrant/README.md)                           |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [virtualbox](roles/virtualbox/README.md)                     |                |          |       |            |            |        |        |        |        |        |        |        |
 | [visual_studio_code](roles/visual_studio_code/README.md)     |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
-| [vmware-host](roles/vmware-host/README.md)                   |                |          |       |            |            |        |        |        |        |        |        |        |
-| [vmware-player](roles/vmware-player/README.md)               |                |          |       |            |            |        |        |        |        |        |        |        |
+| [vmware-host](roles/vmware-host/README.md)                   |    Playbook    |          |       |            |            |        |        |        |        |        |        |        |
+| [vmware-player](roles/vmware-player/README.md)               |      Role      |     Y    |   Y   |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    N   |    N   |
 | [vpn-station](roles/vpn-station/README.md)                   |                |          |       |            |            |        |        |        |        |        |        |        |
 | [webserver](roles/webserver/README.md)                       |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [work-station](roles/work-station/README.md)                 |                |          |       |            |            |        |        |        |        |        |        |        |

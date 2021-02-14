@@ -3,10 +3,26 @@
 
 # this is a combination of an existing script and an ansible role found at: https://github.com/vmware-archive/ansible-role-vmware-workstation
 
-- name: Install linux headers
+# At the time of testing:
+#   debian-9 was kernel 4.9.0-12-amd64 but only had linux-headers-4.9.0-13-amd64 available
+#   debain-10 was kernel 4.19.0-9-amd64 but only had linux-headers-4.19.0-13-amd64 available
+#
+# So ignore errors for Debian but not for any other platform.
+# The only way I can see to do that is to repeat the stanza for each case in turn but to add "ignore errors" to the Debian case.
+
+- name: Install linux headers for Debian, deliberately ignoring errors
   package:
     name: "linux-headers-{{ ansible_kernel }}"
   become: yes
+  ignore_errors: yes
+  when: ansible_distribution == "Debian"
+
+- name: Install linux headers for all platforms other than Debian
+  package:
+    name: "linux-headers-{{ ansible_kernel }}"
+  become: yes
+  when: ansible_distribution != "Debian"
+
 
 - name: Install a few packages
   package:
