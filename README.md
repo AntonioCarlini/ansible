@@ -42,6 +42,6 @@ This table lists the available roles and the platforms on which they have been t
 | [visual_studio_code](roles/visual_studio_code/README.md)     |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [vmware_host](roles/vmware_host/README.md)                   |    Playbook    |     -    |   -   |      -     |      -     |    -   |    -   |    -   |    -   |    -   |    -   |    -   |
 | [vmware_player](roles/vmware_player/README.md)               |      Role      |     Y    |   Y   |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    N   |    N   |
-| [vpn-station](roles/vpn-station/README.md)                   |                |          |       |            |            |        |        |        |        |        |        |        |
+| [vpn-station](roles/vpn-station/README.md)                   |    Playbook    |     -    |   -   |      -     |      -     |    -   |    -   |    -   |    -   |    -   |    -   |    -   |
 | [webserver](roles/webserver/README.md)                       |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [work-station](roles/work-station/README.md)                 |    Playbook    |     -    |   -   |      -     |      -     |    -   |    -   |    -   |    -   |    -   |    -   |    -   |
