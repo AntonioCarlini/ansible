@@ -3,11 +3,10 @@
   tasks:
     - name: Install a few packages
       package:
-        name: "{{ item }}"
-        state: present
-      loop:
+        name:
         - ack
         - tree
+        state: present
       become: yes
   roles:
     - role: collaboration_tools
