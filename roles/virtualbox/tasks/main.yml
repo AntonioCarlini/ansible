@@ -1,13 +1,12 @@
 ---
 # tasks file for virtualbox
 
-- name: Load distribution-specific variables
+- name: Read platform-dependent variables
   include_vars: "{{ item }}"
-  with_first_found:
-    - "{{ ansible_lsb.id }}.yml"
-    - "{{ ansible_distribution }}.yml"
-    - "{{ ansible_os_family }}.yml"
-    - "default.yml"
+  with_fileglob:
+        - "vars/{{ ansible_os_family }}-family.yml"
+        - "vars/{{ ansible_distribution | replace(' ','') }}.yml"
+        - "vars/{{ ansible_distribution | replace(' ','') }}-{{ ansible_distribution_major_version }}.yml"
 
 # Perform the install of VirtualBox
 - include_tasks: "{{ ansible_os_family }}-Install.yml"

@@ -18,15 +18,34 @@
     - https://www.virtualbox.org/download/oracle_vbox.asc
     - https://www.virtualbox.org/download/oracle_vbox_2016.asc
 
-- name: Add Oracle PPA for "{{ distro_release }}" (from vars/{{ ansible_lsb.id }})
+- name: Add Oracle PPA for "{{ distro_release }}"
   apt_repository:
     repo: "deb http://download.virtualbox.org/virtualbox/debian {{ distro_release }} contrib"
     state: present
   become: yes
 
+# At the time of testing:
+#   debian-9 was kernel 4.9.0-12-amd64 but only had linux-headers-4.9.0-13-amd64 available
+#   debain-10 was kernel 4.19.0-9-amd64 but only had linux-headers-4.19.0-13-amd64 available
+#
+# So ignore errors for Debian but not for any other platform.
+# The only way I can see to do that is to repeat the stanza for each case in turn but to add "ignore errors" to the Debian case.
+
+- name: Install linux headers for Debian, deliberately ignoring errors
+  package:
+    name: "linux-headers-{{ ansible_kernel }}"
+  become: yes
+  ignore_errors: yes
+  when: ansible_distribution == "Debian"
+
+- name: Install linux headers for all platforms other than Debian
+  package:
+    name: "linux-headers-{{ ansible_kernel }}"
+  become: yes
+  when: ansible_distribution != "Debian"
+
 - name: Install VirtualBox
   package:
     name:
-      - "linux-headers-{{ ansible_kernel }}"
       - "virtualbox-{{ version }}"
   become: yes
