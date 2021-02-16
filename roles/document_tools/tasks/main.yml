@@ -1,0 +1,46 @@
+---
+# tasks file for roles/document_tools
+
+# TODO: this downloads a specific version of LibreOffice and also expects as specific subversion.
+# This is overly specific and should be relaxed.
+# Note that the test looks for a specific version of 7.1
+
+- name: Read platform-dependent variables
+  include_vars: "{{ item }}"
+  with_fileglob:
+        - "vars/{{ ansible_os_family }}-family.yml"
+        - "vars/{{ ansible_distribution | replace(' ','') }}.yml"
+        - "vars/{{ ansible_distribution | replace(' ','') }}-{{ ansible_distribution_major_version }}.yml"
+
+- name: Create the LibreOffice temporary directory
+  file:
+    path: /tmp/libreoffice
+    state: directory
+
+- name: Download and expand the LibreOffice rpm
+  unarchive:
+    remote_src: yes
+    src: https://mirrors.ukfast.co.uk/sites/documentfoundation.org/tdf/libreoffice/stable/7.1.0/rpm/x86_64/LibreOffice_7.1.0_Linux_x86-64_rpm.tar.gz
+    dest: /tmp/libreoffice
+  when: (ansible_pkg_mgr == "yum") or (ansible_pkg_mgr == "dnf")
+
+- name: Install LibreOffice rpm package
+  shell: yum localinstall -y /tmp/libreoffice/LibreOffice_7.1.0.3_Linux_x86-64_rpm/RPMS/*.rpm
+  args:
+    creates: /usr/bin/libreoffice7.1
+  become: yes
+  when: (ansible_pkg_mgr == "yum") or (ansible_pkg_mgr == "dnf")
+
+- name: Download the LibreOffice deb
+  unarchive:
+    remote_src: yes
+    src: https://mirrors.ukfast.co.uk/sites/documentfoundation.org/tdf/libreoffice/stable/7.1.0/deb/x86_64/LibreOffice_7.1.0_Linux_x86-64_deb.tar.gz
+    dest: /tmp/libreoffice
+  when: ansible_pkg_mgr == "apt"
+
+- name: Install LibreOffice deb package
+  shell: dpkg -i /tmp/libreoffice/LibreOffice_7.1.0.3_Linux_x86-64_deb/DEBS/*.deb
+  args:
+    creates: /usr/local/bin/libreoffice7.1
+  become: yes
+  when: ansible_pkg_mgr == "apt"

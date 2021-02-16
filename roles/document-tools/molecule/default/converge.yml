@@ -1,7 +1,0 @@
----
-- name: Converge
-  hosts: all
-  tasks:
-    - name: "Include document-tools"
-      include_role:
-        name: "document-tools"

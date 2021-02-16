@@ -23,9 +23,9 @@ This table lists the available roles and the platforms on which they have been t
 | [anki](roles/anki/README.md)                                 |      Role      |     Y    |   Y   |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [collaboration_tools](roles/collaboration_tools/README.md)   |      Role      |     Y    |   Y   |      Y     |      Y     |    Y   |    Y   |    N   |    Y   |    Y   |    N   |    N   |
 | [developer_tools](roles/developer_tools/README.md)           |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
-| [document-tools](roles/document-tools/README.md)             |                |          |       |            |            |        |        |        |        |        |        |        |
+| [document_tools](roles/document_tools/README.md)             |      Role      |     Y    |   Y   |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [home_common](roles/home_common?README.md)                   |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
-| [home-station](roles/home-station/REDAME.md)                 |                |          |       |            |            |        |        |        |        |        |        |        |
+| [home-station](roles/home-station/REDAME.md)                 |    Playbook    |     -    |   -   |      -     |      -     |    -   |    -   |    -   |    -   |    -   |    -   |    -   |
 | [imagemagick-fixup](roles/imagemagick-fixup/README.md)       |      Role      |     Y    |   Y   |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [image_manipulation](roles/image_manipulation/README.md)     |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    N   |    N   |
 | [japanese](roles/japanese/README.md)                         |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    N   |    N   |

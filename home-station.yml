@@ -3,21 +3,20 @@
   tasks:
     - name: Install a few packages
       package:
-        name: "{{ item }}"
-        state: present
-      loop:
+        name:
         - acetoneiso
         - munin-node
         - traceroute
         - virt-what
         - wmctrl
+        state: present
       become: yes
 
   roles:
     - role: anki
     - role: japanese
     - role: developer_tools
-    - role: document-tools
+    - role: document_tools
     - role: image_manipulation
     - role: utilities
 
