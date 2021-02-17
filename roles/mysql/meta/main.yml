@@ -8,11 +8,15 @@ galaxy_info:
   platforms:
     - name: Linux Mint
       versions:
+        - 20
         - 19
+    - name: Ubuntu
+      versions:
+        - 20.04
+        - 18.04
     - name: Debian
       versions:
         - 10
-        - 9
   galaxy_tags: []
 
 dependencies: []

@@ -1,41 +1,58 @@
 ---
 # tasks file for roles/mysql
 
-- name: Load distribution-specific variables
+# Notes:
+#  hostnames must be valid (this is easily forgotten when using molecule)
+#  mariadb-server must be installed before automysqlbackup
+#  pip must be installed (e.g. apt-get install python3-pip)
+
+- name: Read platform-dependent variables
   include_vars: "{{ item }}"
-  with_first_found:
-    - "{{ ansible_lsb.id | default('Undefined') }}-{{ ansible_distribution_major_version }}.yml"     # e.g. "Linuxmint-20.yml"
-    - "{{ ansible_distribution }}.yml"                                                               # e.g. "Linux Mint.yml"
-    - "{{ ansible_os_family }}.yml"                                                                  # e.g. "Debian.yml"
+  with_fileglob:
+        - "vars/{{ ansible_os_family }}-family.yml"
+        - "vars/{{ ansible_distribution | replace(' ','') }}.yml"
+        - "vars/{{ ansible_distribution | replace(' ','') }}-{{ ansible_distribution_major_version }}.yml"
+
+
+- name: Install python specials for Linux Mint
+  package:
+    state: present
+    name:
+      - python-setuptools
+  become: yes
+  when: ansible_distribution == "Linux Mint"
 
 - name: Install a MySQL database (mariadb)
   package:
     state: present
     name:
-      - automysqlbackup
       - mariadb-server
-      - "{{ python_venv }}"
+      - automysqlbackup
+      - mariadb-client ## added for LM
       - "{{ python_pip }}"
-      - "{{ python_setuptools }}"
-      - "{{ python_dev }}"
-      - "{{ python_mysql }}"
   become: yes
 
-- name: List pip modules
-  command: '{{ pip_command }} list'
-  changed_when: no
-  register: pip_list
+- name: Set pip3 as the pip alternative
+  alternatives:
+    name: pip
+    link: /usr/bin/pip
+    path: /usr/bin/pip3
+    priority: 50
+  become: yes
+  when: ansible_distribution == "Linux Mint"
 
 - name: Install pymysql
   pip:
     name: PyMySQL
-  when: not "PyMySQL" in pip_list.stdout
+  become: yes
 
 - include_tasks: secure-mysql.yml
+  when: ansible_distribution != "Linux Mint"
   tags:
     - security
 
 - include_tasks: warn_password.yml
+  when: ansible_distribution != "Linux Mint"
   tags:
     - security
 

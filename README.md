@@ -30,7 +30,7 @@ This table lists the available roles and the platforms on which they have been t
 | [image_manipulation](roles/image_manipulation/README.md)     |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    N   |    N   |
 | [japanese](roles/japanese/README.md)                         |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    N   |    N   |
 | [mediawiki](roles/mediawiki/README.md)                       |                |          |       |            |            |        |        |        |        |        |        |        |
-| [mysql](roles/mysql/README.md)                               |                |          |       |            |            |        |        |        |        |        |        |        |
+| [mysql](roles/mysql/README.md)                               |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    N   |    Y   |    N   |    N   |    N   |
 | [nix](roles/nix/README.md)                                   |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [ntp_client](roles/ntp_client/README.md)                     |      Role      |     Y    |       |      N     |      N     |    Y   |    Y   |    Y   |    Y   |    Y   |    N   |    N   |
 | [php](roles/php/README.md)                                   |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |

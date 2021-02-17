@@ -2,17 +2,17 @@
 
 # Once mysql has been installed, these tasks secure the installation
 
-- include_tasks: warn_password.yml
-
 - name: Set the MySQL admin password
   mysql_user:
     login_user: root
     login_password: ""
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    host: 'localhost'
     user: "{{ mysql_admin_user }}"
     password: "{{ mysql_admin_password }}"
     priv: "*.*:ALL"
+  become_method: sudo
   become: yes
-#  no_log: yes
 
 - name: Secure the admin user for IPV6 localhost (::1), IPv4 localhost, localhost and the server's domain
   mysql_user:
@@ -44,5 +44,3 @@
     db: test
     state: absent
   become: yes
-
-- include_tasks: warn_password.yml
