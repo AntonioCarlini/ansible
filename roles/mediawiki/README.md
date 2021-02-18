@@ -3,7 +3,7 @@ Role Name
 
 mediawiki
 
-Installs mediawiki
+Installs mediawiki and its prerequisites (php, mariadb and apache2)
 
 Requirements
 ------------
