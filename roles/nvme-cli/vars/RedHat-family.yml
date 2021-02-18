@@ -1,0 +1,8 @@
+---
+# vars file for nvme-cli
+
+git_package: git
+gcc_package: gcc
+uuid_dev_package: libuuid-devel
+uuid_runtime_package: uuid
+make_package: make

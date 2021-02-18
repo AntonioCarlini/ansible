@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include nvme-cli"
+      include_role:
+        name: "nvme-cli"

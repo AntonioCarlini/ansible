@@ -1,0 +1,13 @@
+---
+# task to enable the CentOS powertools repo (needed for a munin-node dependency)
+
+# Taken from https://code.mythtv.org/trac/ticket/13492 and tweaked to use yum (for CentOS 7)
+# This tries to be idempotent
+- name: check if CentOS PowerTools repo enabled
+  shell:            /usr/bin/yum -q repolist --enabled powertools && echo disabled || echo enabled
+  register:         powertools
+
+- name: enable CentOS PowerTools repository for epel
+  command: dnf config-manager --set-enabled powertools
+  warn: false
+  when: powertools.stdout == "disabled"

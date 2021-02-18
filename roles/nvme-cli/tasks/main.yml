@@ -1,0 +1,49 @@
+---
+# tasks file for nvme-cli
+
+- name: Read platform-dependent variables
+  include_vars: "{{ item }}"
+  with_fileglob:
+        - "vars/{{ ansible_os_family }}-family.yml"
+        - "vars/{{ ansible_distribution | replace(' ','') }}.yml"
+        - "vars/{{ ansible_distribution | replace(' ','') }}-{{ ansible_distribution_major_version }}.yml"
+
+#- include_tasks: centos-enable-powertools-repo.yml
+#  when: (ansible_distribution == "CentOS") and (ansible_distribution_major_version == 8)
+
+- name: Install required packages
+  package:
+    name:
+      - "{{ git_package }}"
+      - "{{ gcc_package }}"
+      - "{{ uuid_runtime_package }}"
+      - "{{ make_package }}"
+      - "{{ uuid_dev_package }}"
+    state: present
+  become: yes
+  tags:
+    - packages
+
+- name: Clone the nvme-cli repo
+  git:
+    repo: https://github.com/linux-nvme/nvme-cli
+    dest: /tmp/nvme-cli
+  tags:
+    - clone
+
+# The ansible 'make' builtin seems to be not idempotent, so use shell instead
+- name: Build nvme-cli
+  shell: make -C /tmp/nvme-cli
+  args:
+    creates: /tmp/nvme-cli/nvme
+  tags:
+    - build
+
+- name: Install nvme-cli
+  shell: make -C /tmp/nvme-cli install
+  args:
+    creates: /usr/sbin/nvme
+  register: make_install
+  become: yes
+  tags:
+    - install
