@@ -33,7 +33,9 @@ This table lists the available roles and the platforms on which they have been t
 | [mysql](roles/mysql/README.md)                               |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    N   |    Y   |    N   |    N   |    N   |
 | [nix](roles/nix/README.md)                                   |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [ntp_client](roles/ntp_client/README.md)                     |      Role      |     Y    |       |      N     |      N     |    Y   |    Y   |    Y   |    Y   |    Y   |    N   |    N   |
+| [nvme_cli](roles/nvme_cli/README.md)                         |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [php](roles/php/README.md)                                   |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
+| [ploticus](roles/ploticus/README.md)                         |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [prepare-ansible-target](prepare-ansible-target.README.md)   |    Playbook    |     -    |   -   |      -     |      -     |    -   |    -   |    -   |    -   |    -   |    -   |    -   |
 | [rust](roles/rust/README.md)                                 |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [utilities](roles/utilities/README.md)                       |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    N   |    N   |    N   |    N   |
