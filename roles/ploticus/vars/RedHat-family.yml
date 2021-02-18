@@ -1,0 +1,8 @@
+---
+# vars file for roles/ploticus when running a distribution from the RedHat family 
+
+gcc_package: gcc
+make_package: make
+zlib1g_package: zlib-devel
+libx11_package: libX11-devel
+libgd_package: gd-devel

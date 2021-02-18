@@ -1,0 +1,57 @@
+---
+
+# Installs ploticus from source
+
+# Installs the packages necessary to build ploticus
+#
+# Downloads the ploticus tarball from sourceforge to /tmp
+# Expands the tarball
+# 'make clean'   to give a stable starting point
+# 'make all'     to build everything from source
+# 'make install' to give install what has just been built
+
+- name: Install packages needed to build ploticus
+  package:
+    name:
+      - "{{ gcc_package }}"
+      - "{{ make_package }}"
+      - "{{ zlib1g_package }}"
+      - "{{ libx11_package }}"
+      - "{{ libgd_package }}"
+    state: present
+  become: yes
+
+- name: Download the ploticus tarball from sourceforge
+  get_url:
+    url: https://master.dl.sourceforge.net/project/ploticus/OldFiles/ploticus233-3.tar.gz
+    dest: /tmp/ploticus.tar.gz
+
+- name: Expand ploticus tarball
+  unarchive:
+    remote_src: yes
+    src: /tmp/ploticus.tar.gz
+    dest: /tmp
+
+
+- name: Check for ploticus output file
+  stat:
+    path: /tmp/newploticus/src/plgd18
+  register: ploticus_build_output
+
+- name: Build ploticus from source
+  make:
+    chdir: /tmp/newploticus
+    target: all
+  when: not ploticus_build_output.stat.exists
+
+- name: Check for ploticus output file
+  stat:
+    path: /usr/bin/ploticus
+  register: ploticus_installed_file
+
+- name: Install the ploticus binaries
+  make:
+    chdir: /tmp/newploticus
+    target: install
+  become: yes
+  when: not ploticus_installed_file.stat.exists

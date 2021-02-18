@@ -1,0 +1,30 @@
+---
+# tasks file for roles/ploticus
+
+# Installs ploticus
+
+- name: Read platform-dependent variables
+  include_vars: "{{ item }}"
+  with_fileglob:
+        - "vars/{{ ansible_os_family }}-family.yml"
+        - "vars/{{ ansible_distribution | replace(' ','') }}.yml"
+        - "vars/{{ ansible_distribution | replace(' ','') }}-{{ ansible_distribution_major_version }}.yml"
+
+# Starts by installing the version included with the distro, if any.
+# If none was found then try to install from source
+
+# Try to install from source, but fail gracefully to allow an attempt to build from source instead
+- name: Install ploticus
+  package:
+    name:
+      - ploticusx
+    state: present
+  register: ploticus_install
+  ignore_errors: yes
+  become: yes
+
+# Build from source, but only if the package manager install failed
+- name: Build from source
+  include_tasks:
+    install-from-source.yml
+  when: ploticus_install.failed

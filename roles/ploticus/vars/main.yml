@@ -1,0 +1,8 @@
+---
+# vars file for roles/ploticus
+
+gcc_package: gcc
+make_package: build-essential
+zlib1g_package: zlib1g-dev
+libx11_package: libx11-dev
+libgd_package: libgd-dev
