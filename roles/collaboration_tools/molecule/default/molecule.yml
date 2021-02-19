@@ -17,6 +17,10 @@ platforms:
     image: debian:buster-slim
   - name:  debian-9
     image: debian:stretch-slim
+  - name:  centos-8
+    image: centos:8
+  - name:  centos-7
+    image: centos:7
 provisioner:
   name: ansible
 verifier:

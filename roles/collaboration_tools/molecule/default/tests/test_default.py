@@ -11,5 +11,6 @@ def test_hosts_file(host):
 
 def test_collaboration_packages_installed(host):
     assert host.package("skypeforlinux").is_installed
-    assert host.package("zoom").is_installed
     assert host.package("slack-desktop").is_installed
+    assert host.package("teams").is_installed
+    assert host.package("zoom").is_installed
