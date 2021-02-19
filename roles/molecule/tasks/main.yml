@@ -1,0 +1,47 @@
+---
+# tasks file for roles/molecule
+
+# ''user_account' must be defined by whoever runs this ansible role
+- name: Check that user_account has been specified
+  fail:
+    msg: 'Set user_account using -e "user_account=USERACCOUNT"'
+  when: (not user_account is defined)
+
+# Find the user_account's $HOME
+- name: Find the {{ user_account }}'s $HOME
+  shell: "echo $HOME"
+  register: account_homedir
+  changed_when: false
+  become: yes
+  become_user: "{{ user_account }}"
+  check_mode: false
+
+- name: Install pip
+  package:
+    name:
+      - python3-pip
+  become: yes
+
+- name: Need virtualenv installed to be able to create a virtual environment
+  pip:
+    name:
+      - virtualenv
+  become: yes
+
+- name: Install in a venv
+  pip:
+    name:
+      - wheel
+      - molecule
+      - ansible
+      - ansible-lint
+      - python-vagrant
+      - molecule-vagrant
+      - pytest-testinfra
+      - rich
+      - molecule-docker
+      - docker
+    virtualenv: "{{ account_homedir.stdout }}/venv/molecule"
+  become: yes
+  become_method: sudo
+  become_user: "{{ user_account }}"

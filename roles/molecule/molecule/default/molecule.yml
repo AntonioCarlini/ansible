@@ -1,0 +1,20 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name:  mint-20.1
+    image: linuxmintd/mint20.1-amd64
+  - name:  ubuntu-20-04
+    image: ubuntu:20.04
+  - name:  ubuntu-18-04
+    image: ubuntu:18.04
+  - name:  debian-10
+    image: debian:buster-slim
+provisioner:
+  name: ansible
+  options:
+    e: user_account=testuser
+verifier:
+  name: testinfra

@@ -1,0 +1,22 @@
+---
+
+- name: Updated packages for hosts that use apt
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Update apt
+      apt:
+         update_cache: yes
+      become: yes
+      when: ansible_pkg_mgr == "apt"
+      changed_when: false
+
+- name: "Molecule needs {{ user_account }} to exist and have a home directory"
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Create user
+      user:
+        name: "{{ user_account }}"
+        comment: Molecule Test User
+      become: yes
