@@ -8,7 +8,6 @@
 #ParserFunctions
 # EasyTimeline
 
-
 - name: Install packages required for mediawiki
   package:
     name: "{{ item }}"

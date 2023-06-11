@@ -1,0 +1,10 @@
+---
+# vars for Linux Mint 21
+
+php_intl_package_name: php-intl
+php_mbstring_package_name: php-mbstring
+php_xml_package_name: php-xml
+php_apcu_package_name: php-apcu
+php_cli_package_name: php8.1-cli
+php_curl_package_name: php8.1-curl 
+php_gd_package_name: php8.1-gd
