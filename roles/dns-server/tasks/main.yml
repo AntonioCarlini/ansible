@@ -1,0 +1,122 @@
+---
+# tasks file for roles/dns-server
+
+- name: Install packages required for a BIND DNS server 
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - bind9
+    - dnsutils
+  become: yes
+
+# The reverse mapping is expected to be configured by another procedure
+# Pointing bind9 at the zone file is expected to be done by another procedure
+
+# To make forwarded requests work properly (at least for now) replace the "forwarders" in /etc/bind/named.conf.options.
+# Allow for the initial state, which is a commented out example.
+# Note that the formatting of leading white-space here is a little hacky but does lead to the correct final result
+- name: Implement a consistent set of forwarders
+  replace:
+    destfile: /etc/bind/named.conf.options
+    regexp: '^\s*(\/\/\s*)?forwarders\s*{$[\s\S]*?^\s*(\/\/\s*)?};\s*$'
+    replace: |8-
+                    forwarders {
+                      8.8.8.8;
+                    };
+  become: yes
+  tags:
+    - forwarders
+
+# Ensure that /etc/bind/named.conf includes bind.keys
+- name: Ensure bind9 includes bind.keys
+  lineinfile:
+    destfile: /etc/bind/named.conf
+    line: 'include "/etc/bind/bind.keys";'
+    state: present
+  become: yes
+  tags:
+    - bind_keys
+
+# Activate logging
+- name: Create log directory
+  file:
+    path: /var/log/bind
+    group: bind
+    owner: bind
+    state: directory
+  become: yes
+  tags:
+    - logging
+
+- name: Configure logging for BIND
+  blockinfile:
+    destfile: /etc/bind/named.conf
+    block: |
+            logging {
+                channel bind.log {
+                    file "/var/log/bind/bind.log" versions 10 size 20m;
+                    severity notice;
+                    print-category yes;
+                    print-severity yes;
+                    print-time yes;
+                };
+  
+                category queries { bind.log; };
+                category default { bind.log; };
+                category config { bind.log; };
+            };
+    marker: "// {mark} ANSIBLE MANAGED BLOCK"
+    state: present
+  become: yes
+  tags:
+    - logging
+
+
+# Protect against malicious DNS requests
+# Note that dnssec-enable was made obsolete in 9.16.0 and completely removed in 9.18.0.
+- name: Make forwarding work properly
+  lineinfile:
+    destfile: /etc/bind/named.conf.options
+    regexp: '^(\s*)dnssec-validation\s*auto\s*;'
+    line: '\1dnssec-validation no;'
+    backrefs: yes
+    state: present
+  become: yes
+  tags:
+    - forwarding
+
+
+- name: Protect against malicious requests
+  blockinfile:
+    destfile: /etc/bind/named.conf.options
+    block: |
+           acl "trusted" {
+               192.168.1.0/24;
+               localhost;
+               localnets;
+           };
+    marker: "// {mark} ANSIBLE MANAGED BLOCK"
+    state: present
+  become: yes
+  tags:
+    - protection
+
+
+# Restrict the server to IPv4 only by changing OPTIONS in /etc/default/named
+# If "-4" is not present anywhere in the line, add it to the beginning of the list of OPTIONS
+# OPTIONS="-4 -u bind"
+# if doesn't have "-4" anywhere then add it to the start of the list
+#
+# Based on a gist found here: https://gist.github.com/iAugur/ecd6cd79d51d2cbef56871b27893f3f2
+- name: Restrict DNS server to respond only to IPv4
+  lineinfile:
+    destfile: /etc/default/named
+    regexp: '^\s*OPTIONS\s*=\s*"(?!.*-4)\s*(.*?)"'
+    line: 'OPTIONS="-4 \1"'
+    backrefs: yes
+    state: present
+  become: yes
+  tags:
+    - ipv4_only
+
