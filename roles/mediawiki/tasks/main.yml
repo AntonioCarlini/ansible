@@ -8,6 +8,7 @@
 #ParserFunctions
 # EasyTimeline
 
+
 - name: Install packages required for mediawiki
   package:
     name: "{{ item }}"
@@ -39,7 +40,7 @@
 - name: Fetch and expand mediawiki tarball
   unarchive:
     remote_src: yes
-    src: https://releases.wikimedia.org/mediawiki/1.34/mediawiki-1.34.0.tar.gz
+    src: https://releases.wikimedia.org/mediawiki/1.38/mediawiki-1.38.1.tar.gz
     dest: /tmp/mediawiki
 
 - name: Create the mediawiki directory
