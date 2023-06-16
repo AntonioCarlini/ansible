@@ -72,6 +72,21 @@
   tags:
     - logging
 
+- name: Set AppArmor to allow access to the log file
+  lineinfile:
+    destfile: /etc/apparmor.d/local/usr.sbin.named
+    regexp: '^(\s*)dnssec-validation\s*auto\s*;'
+    line: '/var/log/bind/bind.log rw,'
+    state: present
+  become: yes
+  register: named_apparmor_rw_access_granted
+  tags:
+    - logging
+    
+- name: Refresh AppArmor to grant BIND access to its log file now
+  command: "apparmor_parser -r /etc/apparmor.d/local/usr.sbin.name"
+  become: yes
+  when: named_apparmor_rw_access_granted['changed']
 
 # Protect against malicious DNS requests
 # Note that dnssec-enable was made obsolete in 9.16.0 and completely removed in 9.18.0.
@@ -85,7 +100,6 @@
   become: yes
   tags:
     - forwarding
-
 
 - name: Protect against malicious requests
   blockinfile:
