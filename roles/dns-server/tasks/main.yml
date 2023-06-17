@@ -84,7 +84,7 @@
     - logging
     
 - name: Refresh AppArmor to grant BIND access to its log file now
-  command: "apparmor_parser -r /etc/apparmor.d/local/usr.sbin.name"
+  command: "apparmor_parser -r /etc/apparmor.d/local/usr.sbin.named"
   become: yes
   when: named_apparmor_rw_access_granted['changed']
 
