@@ -23,6 +23,15 @@ Dependencies
 
 None.
 
+Installed Packages
+------------------
+
+- `anki`
+- `build-essential` (on debian-based systes)
+- `bzip2`
+- `make` (on CentOS 7 or Centos 8)
+- `xdg-tools`
+
 Example Playbook
 ----------------
 
