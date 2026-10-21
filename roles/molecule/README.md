@@ -3,7 +3,7 @@ Role Name
 
 molecule
 
-Installs molecule 9and ansible) in a python venv for the  specified user
+Installs molecule (and ansible) in a python venv for the  specified user
 
 Requirements
 ------------
@@ -19,6 +19,15 @@ Dependencies
 ------------
 
 None.
+
+Installed Packages
+------------------
+
+Python packages installed in the virtual environment:
+
+- `molecule`
+- `ansible`
+- `python3-pip`
 
 Example Playbook
 ----------------
