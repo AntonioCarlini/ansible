@@ -20,6 +20,14 @@ Dependencies
 
 None.
 
+Installed Packages
+------------------
+
+- `apache2` (on Debian-based OSes)
+- `libapache2-mod-php` (on Debian-based OSes)
+- `httpd` (on Redhat-based OSes)
+- `mod_php` (on Redhat-based OSes)
+
 Example Playbook
 ----------------
 
