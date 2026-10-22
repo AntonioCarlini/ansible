@@ -25,6 +25,17 @@ Dependencies
 
 None.
 
+Installed Packages
+------------------
+
+      - python-setuptools (on Linux Mint)
+      - mariadb-server
+      - automysqlbackup
+      - mariadb-client
+      - python3-pip
+
+      - PyMySQL (pip insytall)
+
 Example Playbook
 ----------------
 
