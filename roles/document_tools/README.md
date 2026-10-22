@@ -20,6 +20,11 @@ Dependencies
 
 None.
 
+Installed Packages
+------------------
+
+- `Libre Office`
+
 Example Playbook
 ----------------
 
