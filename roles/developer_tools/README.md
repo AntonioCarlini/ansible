@@ -24,6 +24,13 @@ Dependencies
 
 None.
 
+Installed Packages
+------------------
+
+- `nix`
+- `rust`
+- `Visual Studio Code`
+
 Example Playbook
 ----------------
 
