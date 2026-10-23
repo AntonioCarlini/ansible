@@ -20,6 +20,11 @@ Dependencies
 
 None.
 
+Installed Packages
+------------------
+
+      - vagrant
+
 Example Playbook
 ----------------
 
