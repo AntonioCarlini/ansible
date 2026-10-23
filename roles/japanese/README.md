@@ -20,6 +20,13 @@ Dependencies
 
 None.
 
+Installed Packages
+------------------
+
+- `ibus-anth`
+- `ruby`
+- `sass`
+
 Example Playbook
 ----------------
 
