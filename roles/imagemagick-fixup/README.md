@@ -22,6 +22,11 @@ Dependencies
 
 None
 
+Installed Packages
+------------------
+
+      - epel-release (on Redhat-based OSes)
+
 Example Playbook
 ----------------
 

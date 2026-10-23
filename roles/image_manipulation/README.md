@@ -20,6 +20,19 @@ Dependencies
 
 None.
 
+Installed Packages
+------------------
+
+      - gcc
+      - imagemagick
+      - mupdf-tools
+      - pdfshuffler
+      - php
+      - php-common
+      - php-imagick
+      - rawtherapee
+
+
 Example Playbook
 ----------------
 
