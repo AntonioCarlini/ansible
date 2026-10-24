@@ -20,6 +20,12 @@ Dependencies
 
 None.
 
+Installed Packages
+------------------
+
+- `ntp`
+- `ntpstat`
+
 Example Playbook
 ----------------
 
