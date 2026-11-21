@@ -6,7 +6,7 @@ This repository holds a number of ansible scripts that I've found useful for con
 
 The scrips assume that there is a specific user (`ansibleadmin`) available on the host that is to be managed and that the local user running the script can log in over SSH as that user without entering a password. The `prepare-ansible-target` script is used to create this environment on the host to be managed. When this script is used, you have to specify an account with sudo capability on the managed host. To run  this script against a host with IP address **HOST-IP** that has a sudo-capable account **USER**, do this:
 
-'ansible-playbook prepare-ansible-target -i **HOST-IP**, -u **USER** --ask-pass --ask-become-pass`
+'ansible-playbook prepare-ansible-target.yml -i **HOST-IP**, -u **USER** --ask-pass --ask-become-pass`
 
 Note that the **HOST-IP** *must* be followed by a comma.
 
