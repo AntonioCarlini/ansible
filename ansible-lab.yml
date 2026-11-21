@@ -1,0 +1,30 @@
+---
+# General-purpose Ansible investigation playbook.
+#
+# Used to explore and test Ansible behaviour, including facts, variables,
+# privilege escalation, task execution, conditionals, handlers and other
+# features.
+#
+# This playbook is experimental and diagnostic in nature. It is not intended
+# to configure, install or maintain a system, and should not be used as part
+# of a normal system provisioning process.
+
+- name: Test Ansible identity without privilege escalation
+  hosts: all
+  become: false
+  gather_facts: true
+
+  tasks:
+    - name: Display ansible_user_id without become
+      ansible.builtin.debug:
+        var: ansible_user_id
+
+- name: Test Ansible identity with privilege escalation
+  hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Display ansible_user_id with become
+      ansible.builtin.debug:
+        var: ansible_user_id
