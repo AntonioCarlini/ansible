@@ -1,0 +1,115 @@
+---
+- name: Read OSS CAD Suite release metadata
+  ansible.builtin.uri:
+    url: >-
+      https://api.github.com/repos/YosysHQ/oss-cad-suite-build/releases/{{
+      'latest' if tang_nano_dev_release == 'latest' else
+      'tags/' ~ tang_nano_dev_release }}
+    method: GET
+    return_content: true
+    headers:
+      Accept: application/vnd.github+json
+      X-GitHub-Api-Version: '2022-11-28'
+    status_code: 200
+  check_mode: false
+  register: tang_nano_dev_release_info
+
+- name: Select Linux x86-64 archive
+  ansible.builtin.set_fact:
+    tang_nano_dev_asset: >-
+      {{ tang_nano_dev_release_info.json.assets
+         | selectattr('name', 'search', '^oss-cad-suite-linux-x64-.*\.tgz$')
+         | list | first | default({}) }}
+
+- name: Check that a suitable release archive exists
+  ansible.builtin.assert:
+    that:
+      - tang_nano_dev_asset | length > 0
+    fail_msg: >-
+      No linux-x64 .tgz archive was found in OSS CAD Suite release
+      {{ tang_nano_dev_release_info.json.tag_name }}.
+
+- name: Set version-specific installation paths
+  ansible.builtin.set_fact:
+    tang_nano_dev_version: "{{ tang_nano_dev_release_info.json.tag_name }}"
+    tang_nano_dev_version_dir: >-
+      {{ tang_nano_dev_install_dir }}/oss-cad-suite-{{ tang_nano_dev_release_info.json.tag_name }}
+    tang_nano_dev_archive: >-
+      {{ tang_nano_dev_archive_dir }}/{{ tang_nano_dev_asset.name }}
+    tang_nano_dev_staging_dir: >-
+      {{ tang_nano_dev_archive_dir }}/oss-cad-suite-staging-{{ tang_nano_dev_release_info.json.tag_name }}
+
+- name: Check whether this release is already installed
+  ansible.builtin.stat:
+    path: "{{ tang_nano_dev_version_dir }}/environment"
+  register: tang_nano_dev_installed
+
+- name: Ensure installation parent directory exists
+  ansible.builtin.file:
+    path: "{{ tang_nano_dev_install_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Download OSS CAD Suite archive
+  ansible.builtin.get_url:
+    url: "{{ tang_nano_dev_asset.browser_download_url }}"
+    dest: "{{ tang_nano_dev_archive }}"
+    checksum: "{{ tang_nano_dev_asset.digest | default(omit) }}"
+    mode: '0644'
+  when: not tang_nano_dev_installed.stat.exists
+
+- name: Create staging directory
+  ansible.builtin.file:
+    path: "{{ tang_nano_dev_staging_dir }}"
+    state: directory
+    mode: '0755'
+  when: not tang_nano_dev_installed.stat.exists
+
+- name: Extract OSS CAD Suite archive
+  ansible.builtin.unarchive:
+    src: "{{ tang_nano_dev_archive }}"
+    dest: "{{ tang_nano_dev_staging_dir }}"
+    remote_src: true
+  when: not tang_nano_dev_installed.stat.exists
+
+- name: Locate extracted environment script
+  ansible.builtin.find:
+    paths: "{{ tang_nano_dev_staging_dir }}"
+    patterns: environment
+    recurse: true
+    file_type: file
+  register: tang_nano_dev_environment_script
+  when: not tang_nano_dev_installed.stat.exists
+
+- name: Check archive layout
+  ansible.builtin.assert:
+    that:
+      - tang_nano_dev_environment_script.matched == 1
+    fail_msg: >-
+      Expected one OSS CAD Suite 'environment' script in
+      {{ tang_nano_dev_staging_dir }}; found
+      {{ tang_nano_dev_environment_script.matched }}.
+  when: not tang_nano_dev_installed.stat.exists
+
+- name: Install extracted OSS CAD Suite
+  ansible.builtin.command:
+    argv:
+      - mv
+      - "{{ tang_nano_dev_environment_script.files[0].path | dirname }}"
+      - "{{ tang_nano_dev_version_dir }}"
+    creates: "{{ tang_nano_dev_version_dir }}/environment"
+  when: not tang_nano_dev_installed.stat.exists
+
+- name: Remove staging directory
+  ansible.builtin.file:
+    path: "{{ tang_nano_dev_staging_dir }}"
+    state: absent
+  when: not tang_nano_dev_installed.stat.exists
+
+- name: Remove downloaded archive
+  ansible.builtin.file:
+    path: "{{ tang_nano_dev_archive }}"
+    state: absent
+  when: not tang_nano_dev_installed.stat.exists

@@ -1,0 +1,16 @@
+---
+# Installation settings for the YosysHQ OSS CAD Suite.
+# 'latest' resolves the latest GitHub release at playbook execution time.
+tang_nano_dev_release: latest
+
+tang_nano_dev_install_dir: /opt
+# Stable path used by users and shell configuration. This is a symlink to
+# the version-specific installation directory.
+tang_nano_dev_link: /opt/oss-cad-suite
+
+tang_nano_dev_archive_dir: /var/tmp
+
+tang_nano_dev_install_udev_rules: true
+# openFPGALoader's 99 rule assigns USB devices to plugdev.
+
+tang_nano_dev_configure_path: true

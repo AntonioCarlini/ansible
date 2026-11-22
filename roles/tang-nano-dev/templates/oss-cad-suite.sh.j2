@@ -1,0 +1,5 @@
+# Managed by Ansible (role: tang_nano_dev).
+# Make the OSS CAD Suite tools available in login shells.
+if [ -r "{{ tang_nano_dev_link }}/environment" ]; then
+    . "{{ tang_nano_dev_link }}/environment"
+fi

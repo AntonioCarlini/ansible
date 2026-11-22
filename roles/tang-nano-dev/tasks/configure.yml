@@ -1,0 +1,70 @@
+---
+- name: Inspect stable OSS CAD Suite path
+  ansible.builtin.stat:
+    path: "{{ tang_nano_dev_link }}"
+    follow: false
+  register: tang_nano_dev_link_stat
+
+- name: Check stable OSS CAD Suite path
+  ansible.builtin.assert:
+    that:
+      - >-
+        not tang_nano_dev_link_stat.stat.exists
+        or tang_nano_dev_link_stat.stat.islnk
+    fail_msg: >-
+      {{ tang_nano_dev_link }} exists but is not a symbolic link.
+      Please inspect it before continuing.
+
+- name: Create stable OSS CAD Suite symlink
+  ansible.builtin.file:
+    src: "{{ tang_nano_dev_version_dir }}"
+    dest: "{{ tang_nano_dev_link }}"
+    state: link
+
+- name: Configure OSS CAD Suite environment for login shells
+  ansible.builtin.template:
+    src: oss-cad-suite.sh.j2
+    dest: /etc/profile.d/oss-cad-suite.sh
+    owner: root
+    group: root
+    mode: '0644'
+  when: tang_nano_dev_configure_path
+
+- name: Ensure USB access group exists
+  ansible.builtin.group:
+    name: plugdev
+    system: true
+    state: present
+  when: tang_nano_dev_install_udev_rules
+
+- name: Install openFPGALoader udev rules
+  ansible.builtin.copy:
+    src: 99-openfpgaloader.rules
+    dest: /etc/udev/rules.d/99-openfpgaloader.rules
+    owner: root
+    group: root
+    mode: '0644'
+  register: tang_nano_dev_udev_rules
+  when: tang_nano_dev_install_udev_rules
+
+- name: Reload udev rules
+  ansible.builtin.command:
+    argv:
+      - udevadm
+      - control
+      - --reload-rules
+  changed_when: false
+  when:
+    - tang_nano_dev_install_udev_rules
+    - tang_nano_dev_udev_rules.changed
+
+- name: Trigger USB device rules
+  ansible.builtin.command:
+    argv:
+      - udevadm
+      - trigger
+      - --subsystem-match=usb
+  changed_when: false
+  when:
+    - tang_nano_dev_install_udev_rules
+    - tang_nano_dev_udev_rules.changed

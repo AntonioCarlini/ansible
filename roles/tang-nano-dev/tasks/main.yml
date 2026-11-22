@@ -1,0 +1,15 @@
+---
+- name: Check supported platform
+  ansible.builtin.assert:
+    that:
+      - ansible_system == 'Linux'
+      - ansible_architecture == 'x86_64'
+    fail_msg: >-
+      tang_nano_dev currently installs the OSS CAD Suite linux-x64 build;
+      this host reports {{ ansible_system }} / {{ ansible_architecture }}.
+
+- name: Install OSS CAD Suite
+  ansible.builtin.include_tasks: install.yml
+
+- name: Configure FPGA development environment
+  ansible.builtin.include_tasks: configure.yml
