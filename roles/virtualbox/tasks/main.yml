@@ -9,7 +9,7 @@
         - "vars/{{ ansible_distribution | replace(' ','') }}-{{ ansible_distribution_major_version }}.yml"
 
 # Perform the install of VirtualBox
-- include_tasks: "{{ ansible_os_family }}-Install.yml"
+- include_tasks: "{{ ansible_os_family }}_Install.yml"
 
 - name: Check for extensions
   command: VBoxManage list extpacks
