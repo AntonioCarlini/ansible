@@ -25,7 +25,7 @@ Example Playbook
 
     - hosts: all
       roles:
-         - role: nvme_client
+         - role: nvme_cli
 
 License
 -------
