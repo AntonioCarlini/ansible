@@ -39,12 +39,12 @@ This table lists the available roles and the platforms on which they have been t
 | [ploticus](roles/ploticus/README.md)                         |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [prepare-ansible-target](prepare-ansible-target.README.md)   |    Playbook    |     -    |   -   |      -     |      -     |    -   |    -   |    -   |    -   |    -   |    -   |    -   |
 | [rust](roles/rust/README.md)                                 |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
-| [visual_studio_code](roles/visual-studio_code/README.md)     |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [tang_nano_dev](roles/tang-nano-dev/README.md)               |      Role      |     Y    |       |            |            |        |        |        |        |        |        |        |
+| [visual_studio_code](roles/visual-studio_code/README.md)     |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [vagrant](roles/vagrant/README.md)                           |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [virtualbox](roles/virtualbox/README.md)                     |      Role      |     Y    |   Y   |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [visual_studio_code](roles/visual-studio-code/README.md)     |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
-| [vmware_host](roles/vmware_host/README.md)                   |    Playbook    |     -    |   -   |      -     |      -     |    -   |    -   |    -   |    -   |    -   |    -   |    -   |
+| [vmware_host](roles/vmware-host/README.md)                   |    Playbook    |     -    |   -   |      -     |      -     |    -   |    -   |    -   |    -   |    -   |    -   |    -   |
 | [vmware_player](roles/vmware_player/README.md)               |      Role      |     Y    |   Y   |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    N   |    N   |
 | [vpn-station](roles/vpn-station/README.md)                   |    Playbook    |     -    |   -   |      -     |      -     |    -   |    -   |    -   |    -   |    -   |    -   |    -   |
 | [webserver](roles/webserver/README.md)                       |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
