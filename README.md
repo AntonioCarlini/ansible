@@ -39,7 +39,8 @@ This table lists the available roles and the platforms on which they have been t
 | [ploticus](roles/ploticus/README.md)                         |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [prepare-ansible-target](prepare-ansible-target.README.md)   |    Playbook    |     -    |   -   |      -     |      -     |    -   |    -   |    -   |    -   |    -   |    -   |    -   |
 | [rust](roles/rust/README.md)                                 |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
-| [utilities](roles/utilities/README.md)                       |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    N   |    N   |    N   |    N   |
+| [visual_studio_code](roles/visual_studio_code/README.md)     |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
+| [tang_nano_dev](roles/tang_nano+dev/README.md)               |      Role      |     Y    |       |            |            |        |        |        |        |        |        |        |
 | [vagrant](roles/vagrant/README.md)                           |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [virtualbox](roles/virtualbox/README.md)                     |      Role      |     Y    |   Y   |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
 | [visual_studio_code](roles/visual_studio_code/README.md)     |      Role      |     Y    |       |      Y     |      Y     |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |    Y   |
