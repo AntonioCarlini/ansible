@@ -1,7 +1,7 @@
 Role Name
 =========
 
-nvme-cli
+nvme_cli
 
 Builds and installs the latest nvme-cli software from github
 
@@ -25,7 +25,7 @@ Example Playbook
 
     - hosts: all
       roles:
-         - role: nvme-client
+         - role: nvme_client
 
 License
 -------

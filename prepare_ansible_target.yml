@@ -1,4 +1,4 @@
 ---
 - hosts: all
   roles:
-    - role: prepare-ansible-target
+    - role: prepare_ansible_target

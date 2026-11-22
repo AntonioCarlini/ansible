@@ -1,5 +1,5 @@
 ---
-# tasks file for nvme-cli
+# tasks file for nvme_cli
 
 - name: Read platform-dependent variables
   include_vars: "{{ item }}"
@@ -8,7 +8,7 @@
         - "vars/{{ ansible_distribution | replace(' ','') }}.yml"
         - "vars/{{ ansible_distribution | replace(' ','') }}-{{ ansible_distribution_major_version }}.yml"
 
-#- include_tasks: centos-enable-powertools-repo.yml
+#- include_tasks: centos_enable_powertools_repo.yml
 #  when: (ansible_distribution == "CentOS") and (ansible_distribution_major_version == 8)
 
 - name: Install required packages

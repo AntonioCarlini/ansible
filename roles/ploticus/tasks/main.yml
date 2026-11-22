@@ -26,5 +26,5 @@
 # Build from source, but only if the package manager install failed
 - name: Build from source
   include_tasks:
-    install-from-source.yml
+    install_from_source.yml
   when: ploticus_install.failed

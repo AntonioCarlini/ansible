@@ -1,5 +1,5 @@
 ---
-# vars file for nvme-cli
+# vars file for nvme_cli
 
 git_package: git
 gcc_package: gcc

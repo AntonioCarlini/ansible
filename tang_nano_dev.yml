@@ -3,4 +3,4 @@
   become: true
 
   roles:
-    - role: tang-nano-dev
+    - role: tang_nano_dev

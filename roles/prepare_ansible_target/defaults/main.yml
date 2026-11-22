@@ -1,5 +1,5 @@
 ---
-# defaults file for prepare-ansible-target
+# defaults file for prepare_ansible_target
 
 admin_user_name: ansibleadmin
 admin_user_shell: /bin/bash

@@ -1,7 +1,7 @@
 Role Name
 =========
 
-dns-server
+dns_server
 
 Handles installation and initial configuration of a DNS server.
 It is expected that further configuration will happen using a separate process.
@@ -28,7 +28,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: all
       roles:
-         - dns-server
+         - dns_server
 
 License
 -------

@@ -1,6 +1,6 @@
 ---
 
-# tasks file for 'prepare-ansible-target' role
+# tasks file for 'prepare_ansible_target' role
 #
 # 1. Creates the admin user (defaults to ansibleadmin)
 # 2. Gives the admin user passwordless sudo access

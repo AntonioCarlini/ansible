@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include roles/imagemagick-fixup"
+    - name: "Include roles/imagemagick_fixup"
       include_role:
-        name: "imagemagick-fixup"
+        name: "imagemagick_fixup"

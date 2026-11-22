@@ -46,7 +46,7 @@
     name: PyMySQL
   become: yes
 
-- include_tasks: secure-mysql.yml
+- include_tasks: secure_mysql.yml
   when: ansible_distribution != "Linux Mint"
   tags:
     - security

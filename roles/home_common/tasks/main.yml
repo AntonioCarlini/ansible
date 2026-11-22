@@ -11,7 +11,7 @@
   become: yes
   when: (ansible_distribution == "CentOS")
 
-- include_tasks: centos-enable-powertools-repo.yml
+- include_tasks: centos_enable_powertools_repo.yml
   when: (ansible_distribution == "CentOS")
 
 - name: Install Standard Packages
@@ -71,7 +71,7 @@
     - sudo
 
 # CentOS cannot do this and probably never will: https://github.com/ansible/ansible/issues/44708
-- include_tasks: fix-locale.yml
+- include_tasks: fix_locale.yml
   when: (ansible_distribution != "CentOS")
   tags:
     - locale

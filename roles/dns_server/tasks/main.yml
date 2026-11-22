@@ -1,5 +1,5 @@
 ---
-# tasks file for roles/dns-server
+# tasks file for roles/dns_server
 
 - name: Install packages required for a BIND DNS server 
   package:

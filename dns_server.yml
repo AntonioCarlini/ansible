@@ -1,4 +1,4 @@
 ---
 - hosts: all
   roles:
-    - role: dns-server
+    - role: dns_server

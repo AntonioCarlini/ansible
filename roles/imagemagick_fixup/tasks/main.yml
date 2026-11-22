@@ -1,5 +1,5 @@
 ---
-# tasks file for roles/imagemagick-fixup
+# tasks file for roles/imagemagick_fixup
 
 # CentOS needs the EPEL repository to find imagemagick/graphicsmagic
 - name: Install EPEL repository for CentOS

@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - prepare-ansible-target
+    - prepare_ansible_target
